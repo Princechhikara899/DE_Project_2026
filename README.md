@@ -22,12 +22,12 @@
 
 | Role | Name | Enrollment No. | GitHub Username |
 |------|------|----------------|-----------------|
-| Group Lead | | | |
-| Member 2 | | | |
-| Member 3 | | | |
-| Member 4 | | | |
+| **Group Lead** | Prince | 2501010641 | Princechhikara899 |
+| Member 2 | Manisha Jain | 2501010258 | hellomanishahere |
+| Member 3 | Gamini Ganapathi Ranga Rithwik | 2501010164 | Ritwick2023 |
+| Member 4 | Ananya Agrahari | 2501010624 | ananya26102006 |
 
-**Team No.:** ____ · **Section:** ____ · **Repository URL:** ____
+**Team No.:** T0034 · **Section:** B · **Repository URL:** https://github.com/Princechhikara899/DE_Project_2026
 
 ---
 
