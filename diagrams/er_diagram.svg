@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1550" viewBox="0 0 1600 1550">
+  <defs>
+    <style>
+      .title { font: bold 32px Arial; fill: #172554; }
+      .subtitle { font: 16px Arial; fill: #475569; }
+      .table { fill: #ffffff; stroke: #2563eb; stroke-width: 2; rx: 10; }
+      .header { fill: #dbeafe; }
+      .name { font: bold 19px Arial; fill: #1e3a8a; }
+      .field { font: 15px Arial; fill: #1f2937; }
+      .key { font: bold 14px Arial; fill: #b45309; }
+      .section { font: bold 22px Arial; fill: #172554; }
+      .relation { font: 16px Arial; fill: #334155; }
+      .line { stroke: #64748b; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1550" fill="#f8fafc"/>
+  <text x="800" y="48" text-anchor="middle" class="title">Urban Company — Entity Relationship Diagram</text>
+  <text x="800" y="78" text-anchor="middle" class="subtitle">11 tables · Primary keys · Foreign keys · Database relationships</text>
+
+  <!-- Cities -->
+  <g transform="translate(60,120)">
+    <rect class="table" width="330" height="125"/>
+    <path class="header" d="M10 0 H320 Q330 0 330 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="165" y="28" text-anchor="middle" class="name">CITIES</text>
+    <text x="16" y="70" class="key">PK  city_id</text>
+    <text x="16" y="96" class="field">city_name</text>
+    <text x="16" y="118" class="field">state</text>
+  </g>
+
+  <!-- Customers -->
+  <g transform="translate(470,120)">
+    <rect class="table" width="390" height="225"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">CUSTOMERS</text>
+    <text x="16" y="70" class="key">PK  customer_id</text>
+    <text x="16" y="96" class="field">full_name</text>
+    <text x="16" y="122" class="field">phone, email</text>
+    <text x="16" y="148" class="key">FK  city_id</text>
+    <text x="16" y="174" class="field">plus_valid_until</text>
+    <text x="16" y="200" class="field">created_at</text>
+  </g>
+
+  <!-- Professionals -->
+  <g transform="translate(940,120)">
+    <rect class="table" width="390" height="250"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">PROFESSIONALS</text>
+    <text x="16" y="70" class="key">PK  pro_id</text>
+    <text x="16" y="96" class="field">full_name, phone</text>
+    <text x="16" y="122" class="key">FK  city_id</text>
+    <text x="16" y="148" class="field">gender, joined_on</text>
+    <text x="16" y="174" class="field">rating, kyc_verified</text>
+    <text x="16" y="200" class="field">status</text>
+  </g>
+
+  <!-- Service categories -->
+  <g transform="translate(60,440)">
+    <rect class="table" width="330" height="125"/>
+    <path class="header" d="M10 0 H320 Q330 0 330 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="165" y="28" text-anchor="middle" class="name">SERVICE_CATEGORIES</text>
+    <text x="16" y="70" class="key">PK  category_id</text>
+    <text x="16" y="96" class="field">category_name</text>
+  </g>
+
+  <!-- Services -->
+  <g transform="translate(470,440)">
+    <rect class="table" width="390" height="175"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">SERVICES</text>
+    <text x="16" y="70" class="key">PK  service_id</text>
+    <text x="16" y="96" class="key">FK  category_id</text>
+    <text x="16" y="122" class="field">service_name</text>
+    <text x="16" y="148" class="field">duration_min, base_price, is_active</text>
+  </g>
+
+  <!-- Bookings -->
+  <g transform="translate(940,440)">
+    <rect class="table" width="480" height="350"/>
+    <path class="header" d="M10 0 H470 Q480 0 480 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="240" y="28" text-anchor="middle" class="name">BOOKINGS</text>
+    <text x="16" y="70" class="key">PK  booking_id</text>
+    <text x="16" y="96" class="key">FK  customer_id</text>
+    <text x="16" y="122" class="key">FK  service_id</text>
+    <text x="16" y="148" class="key">FK  pro_id (nullable)</text>
+    <text x="16" y="174" class="key">FK  city_id</text>
+    <text x="16" y="200" class="field">pincode</text>
+    <text x="16" y="226" class="field">booked_at</text>
+    <text x="16" y="252" class="field">scheduled_start, scheduled_end</text>
+    <text x="16" y="278" class="field">started_at, completed_at</text>
+    <text x="16" y="304" class="field">status, price, discount</text>
+    <text x="16" y="330" class="field">cancellation_fee, tip, payment_method</text>
+  </g>
+
+  <!-- Reviews -->
+  <g transform="translate(60,900)">
+    <rect class="table" width="390" height="200"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">REVIEWS</text>
+    <text x="16" y="70" class="key">PK, FK  booking_id</text>
+    <text x="16" y="96" class="field">rating_for_pro</text>
+    <text x="16" y="122" class="field">comment</text>
+    <text x="16" y="148" class="field">rating_for_customer</text>
+    <text x="16" y="174" class="field">created_at</text>
+  </g>
+
+  <!-- Reschedules -->
+  <g transform="translate(510,900)">
+    <rect class="table" width="390" height="225"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">RESCHEDULES</text>
+    <text x="16" y="70" class="key">PK  reschedule_id</text>
+    <text x="16" y="96" class="key">FK  booking_id</text>
+    <text x="16" y="122" class="field">old_start, new_start</text>
+    <text x="16" y="148" class="field">requested_by</text>
+    <text x="16" y="174" class="field">reason</text>
+    <text x="16" y="200" class="field">created_at</text>
+  </g>
+
+  <!-- Payouts -->
+  <g transform="translate(960,900)">
+    <rect class="table" width="390" height="250"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">PAYOUTS</text>
+    <text x="16" y="70" class="key">PK  payout_id</text>
+    <text x="16" y="96" class="key">FK  pro_id</text>
+    <text x="16" y="122" class="field">week_start, jobs</text>
+    <text x="16" y="148" class="field">gross_earnings</text>
+    <text x="16" y="174" class="field">commission, net_payout</text>
+    <text x="16" y="200" class="field">status</text>
+    <text x="16" y="226" class="field">paid_at</text>
+  </g>
+
+  <!-- Pro skills -->
+  <g transform="translate(60,1200)">
+    <rect class="table" width="390" height="150"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">PRO_SKILLS</text>
+    <text x="16" y="70" class="key">PK, FK  pro_id</text>
+    <text x="16" y="96" class="key">PK, FK  category_id</text>
+    <text x="16" y="122" class="field">certified_on</text>
+  </g>
+
+  <!-- Pro availability -->
+  <g transform="translate(510,1200)">
+    <rect class="table" width="390" height="150"/>
+    <path class="header" d="M10 0 H380 Q390 0 390 10 V42 H0 V10 Q0 0 10 0"/>
+    <text x="195" y="28" text-anchor="middle" class="name">PRO_AVAILABILITY</text>
+    <text x="16" y="70" class="key">PK, FK  pro_id</text>
+    <text x="16" y="96" class="key">PK  work_date, start_time</text>
+    <text x="16" y="122" class="field">end_time</text>
+  </g>
+
+  <!-- Relationship summary -->
+  <text x="960" y="1220" class="section">RELATIONSHIPS</text>
+  <text x="960" y="1255" class="relation">Cities 1 — N Customers</text>
+  <text x="960" y="1282" class="relation">Cities 1 — N Professionals</text>
+  <text x="960" y="1309" class="relation">Cities 1 — N Bookings</text>
+  <text x="960" y="1336" class="relation">Customers 1 — N Bookings</text>
+  <text x="960" y="1363" class="relation">Professionals 1 — N Bookings (optional assignment)</text>
+  <text x="960" y="1390" class="relation">Services 1 — N Bookings</text>
+  <text x="960" y="1417" class="relation">Service categories 1 — N Services</text>
+  <text x="960" y="1444" class="relation">Bookings 1 — 0..1 Reviews; Bookings 1 — N Reschedules</text>
+  <text x="960" y="1471" class="relation">Professionals 1 — N Payouts and Availability</text>
+  <text x="960" y="1498" class="relation">Professionals N — M Service categories via Pro_skills</text>
+</svg>
