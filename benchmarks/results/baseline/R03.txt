@@ -1,0 +1,75 @@
+=== R03 run 1 ===
+Sort  (cost=4804.66..4804.67 rows=1 width=51) (actual time=6.639..6.639 rows=1.00 loops=1)
+  Sort Key: b.scheduled_start
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2551
+  ->  Nested Loop Left Join  (cost=0.28..4804.65 rows=1 width=51) (actual time=6.624..6.627 rows=1.00 loops=1)
+        Buffers: shared hit=2548
+        ->  Nested Loop  (cost=0.00..4796.35 rows=1 width=43) (actual time=6.617..6.621 rows=1.00 loops=1)
+              Join Filter: (s.service_id = b.service_id)
+              Rows Removed by Join Filter: 4
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4794.00 rows=1 width=31) (actual time=6.608..6.612 rows=1.00 loops=1)
+                    Filter: ((scheduled_start >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (customer_id = 226))
+                    Rows Removed by Filter: 149999
+                    Buffers: shared hit=2544
+              ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.007..0.007 rows=5.00 loops=1)
+                    Buffers: shared hit=1
+        ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..8.30 rows=1 width=16) (actual time=0.006..0.006 rows=1.00 loops=1)
+              Index Cond: (pro_id = b.pro_id)
+              Index Searches: 1
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.412 ms
+Execution Time: 6.669 ms
+=== R03 run 2 ===
+Sort  (cost=4804.66..4804.67 rows=1 width=51) (actual time=6.308..6.308 rows=1.00 loops=1)
+  Sort Key: b.scheduled_start
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2551
+  ->  Nested Loop Left Join  (cost=0.28..4804.65 rows=1 width=51) (actual time=6.295..6.298 rows=1.00 loops=1)
+        Buffers: shared hit=2548
+        ->  Nested Loop  (cost=0.00..4796.35 rows=1 width=43) (actual time=6.287..6.291 rows=1.00 loops=1)
+              Join Filter: (s.service_id = b.service_id)
+              Rows Removed by Join Filter: 4
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4794.00 rows=1 width=31) (actual time=6.278..6.282 rows=1.00 loops=1)
+                    Filter: ((scheduled_start >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (customer_id = 226))
+                    Rows Removed by Filter: 149999
+                    Buffers: shared hit=2544
+              ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.006..0.006 rows=5.00 loops=1)
+                    Buffers: shared hit=1
+        ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..8.30 rows=1 width=16) (actual time=0.006..0.006 rows=1.00 loops=1)
+              Index Cond: (pro_id = b.pro_id)
+              Index Searches: 1
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.387 ms
+Execution Time: 6.336 ms
+=== R03 run 3 ===
+Sort  (cost=4804.66..4804.67 rows=1 width=51) (actual time=6.004..6.004 rows=1.00 loops=1)
+  Sort Key: b.scheduled_start
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2551
+  ->  Nested Loop Left Join  (cost=0.28..4804.65 rows=1 width=51) (actual time=5.992..5.995 rows=1.00 loops=1)
+        Buffers: shared hit=2548
+        ->  Nested Loop  (cost=0.00..4796.35 rows=1 width=43) (actual time=5.986..5.989 rows=1.00 loops=1)
+              Join Filter: (s.service_id = b.service_id)
+              Rows Removed by Join Filter: 4
+              Buffers: shared hit=2545
+              ->  Seq Scan on bookings b  (cost=0.00..4794.00 rows=1 width=31) (actual time=5.981..5.984 rows=1.00 loops=1)
+                    Filter: ((scheduled_start >= '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND (customer_id = 226))
+                    Rows Removed by Filter: 149999
+                    Buffers: shared hit=2544
+              ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.003..0.003 rows=5.00 loops=1)
+                    Buffers: shared hit=1
+        ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..8.30 rows=1 width=16) (actual time=0.005..0.005 rows=1.00 loops=1)
+              Index Cond: (pro_id = b.pro_id)
+              Index Searches: 1
+              Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=249
+Planning Time: 0.395 ms
+Execution Time: 6.031 ms

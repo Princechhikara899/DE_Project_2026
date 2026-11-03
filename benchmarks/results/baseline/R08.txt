@@ -1,0 +1,63 @@
+=== R08 run 1 ===
+Sort  (cost=753.75..753.86 rows=43 width=30) (actual time=1.633..1.653 rows=1080.00 loops=1)
+  Sort Key: po.net_payout DESC
+  Sort Method: quicksort  Memory: 102kB
+  Buffers: shared hit=294
+  ->  Hash Join  (cost=83.25..752.59 rows=43 width=30) (actual time=1.335..1.470 rows=1080.00 loops=1)
+        Hash Cond: (po.pro_id = p.pro_id)
+        Buffers: shared hit=291
+        ->  Seq Scan on payouts po  (cost=0.00..669.22 rows=43 width=18) (actual time=1.112..1.175 rows=1080.00 loops=1)
+              Filter: (((status)::text = 'PENDING'::text) AND (week_start = '2026-06-22'::date))
+              Rows Removed by Filter: 25935
+              Buffers: shared hit=264
+        ->  Hash  (cost=52.00..52.00 rows=2500 width=16) (actual time=0.216..0.216 rows=2500.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 153kB
+              Buffers: shared hit=27
+              ->  Seq Scan on professionals p  (cost=0.00..52.00 rows=2500 width=16) (actual time=0.003..0.098 rows=2500.00 loops=1)
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=229
+Planning Time: 0.331 ms
+Execution Time: 1.692 ms
+=== R08 run 2 ===
+Sort  (cost=753.75..753.86 rows=43 width=30) (actual time=1.347..1.366 rows=1080.00 loops=1)
+  Sort Key: po.net_payout DESC
+  Sort Method: quicksort  Memory: 102kB
+  Buffers: shared hit=294
+  ->  Hash Join  (cost=83.25..752.59 rows=43 width=30) (actual time=1.076..1.196 rows=1080.00 loops=1)
+        Hash Cond: (po.pro_id = p.pro_id)
+        Buffers: shared hit=291
+        ->  Seq Scan on payouts po  (cost=0.00..669.22 rows=43 width=18) (actual time=0.870..0.920 rows=1080.00 loops=1)
+              Filter: (((status)::text = 'PENDING'::text) AND (week_start = '2026-06-22'::date))
+              Rows Removed by Filter: 25935
+              Buffers: shared hit=264
+        ->  Hash  (cost=52.00..52.00 rows=2500 width=16) (actual time=0.200..0.200 rows=2500.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 153kB
+              Buffers: shared hit=27
+              ->  Seq Scan on professionals p  (cost=0.00..52.00 rows=2500 width=16) (actual time=0.002..0.093 rows=2500.00 loops=1)
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=229
+Planning Time: 0.307 ms
+Execution Time: 1.404 ms
+=== R08 run 3 ===
+Sort  (cost=753.75..753.86 rows=43 width=30) (actual time=1.290..1.309 rows=1080.00 loops=1)
+  Sort Key: po.net_payout DESC
+  Sort Method: quicksort  Memory: 102kB
+  Buffers: shared hit=294
+  ->  Hash Join  (cost=83.25..752.59 rows=43 width=30) (actual time=1.027..1.145 rows=1080.00 loops=1)
+        Hash Cond: (po.pro_id = p.pro_id)
+        Buffers: shared hit=291
+        ->  Seq Scan on payouts po  (cost=0.00..669.22 rows=43 width=18) (actual time=0.822..0.871 rows=1080.00 loops=1)
+              Filter: (((status)::text = 'PENDING'::text) AND (week_start = '2026-06-22'::date))
+              Rows Removed by Filter: 25935
+              Buffers: shared hit=264
+        ->  Hash  (cost=52.00..52.00 rows=2500 width=16) (actual time=0.200..0.200 rows=2500.00 loops=1)
+              Buckets: 4096  Batches: 1  Memory Usage: 153kB
+              Buffers: shared hit=27
+              ->  Seq Scan on professionals p  (cost=0.00..52.00 rows=2500 width=16) (actual time=0.002..0.091 rows=2500.00 loops=1)
+                    Buffers: shared hit=27
+Planning:
+  Buffers: shared hit=229
+Planning Time: 0.268 ms
+Execution Time: 1.343 ms

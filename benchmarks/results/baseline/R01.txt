@@ -1,0 +1,78 @@
+=== R01 run 1 ===
+Sort  (cost=13.96..13.96 rows=1 width=29) (actual time=0.046..0.046 rows=5.00 loops=1)
+  Sort Key: s.base_price
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=24
+  ->  Nested Loop  (cost=0.16..13.95 rows=1 width=29) (actual time=0.019..0.031 rows=5.00 loops=1)
+        Buffers: shared hit=21
+        ->  Seq Scan on services s  (cost=0.00..1.60 rows=57 width=33) (actual time=0.005..0.009 rows=57.00 loops=1)
+              Filter: is_active
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Memoize  (cost=0.16..1.02 rows=1 width=4) (actual time=0.000..0.000 rows=0.09 loops=57)
+              Cache Key: s.category_id
+              Cache Mode: logical
+              Hits: 47  Misses: 10  Evictions: 0  Overflows: 0  Memory Usage: 1kB
+              Buffers: shared hit=20
+              ->  Index Scan using service_categories_pkey on service_categories c  (cost=0.15..1.01 rows=1 width=4) (actual time=0.001..0.001 rows=0.10 loops=10)
+                    Index Cond: (category_id = s.category_id)
+                    Filter: ((category_name)::text = 'AC Repair'::text)
+                    Rows Removed by Filter: 1
+                    Index Searches: 10
+                    Buffers: shared hit=20
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.991 ms
+Execution Time: 0.076 ms
+=== R01 run 2 ===
+Sort  (cost=13.96..13.96 rows=1 width=29) (actual time=0.054..0.054 rows=5.00 loops=1)
+  Sort Key: s.base_price
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=24
+  ->  Nested Loop  (cost=0.16..13.95 rows=1 width=29) (actual time=0.022..0.037 rows=5.00 loops=1)
+        Buffers: shared hit=21
+        ->  Seq Scan on services s  (cost=0.00..1.60 rows=57 width=33) (actual time=0.005..0.010 rows=57.00 loops=1)
+              Filter: is_active
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Memoize  (cost=0.16..1.02 rows=1 width=4) (actual time=0.000..0.000 rows=0.09 loops=57)
+              Cache Key: s.category_id
+              Cache Mode: logical
+              Hits: 47  Misses: 10  Evictions: 0  Overflows: 0  Memory Usage: 1kB
+              Buffers: shared hit=20
+              ->  Index Scan using service_categories_pkey on service_categories c  (cost=0.15..1.01 rows=1 width=4) (actual time=0.001..0.001 rows=0.10 loops=10)
+                    Index Cond: (category_id = s.category_id)
+                    Filter: ((category_name)::text = 'AC Repair'::text)
+                    Rows Removed by Filter: 1
+                    Index Searches: 10
+                    Buffers: shared hit=20
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.378 ms
+Execution Time: 0.091 ms
+=== R01 run 3 ===
+Sort  (cost=13.96..13.96 rows=1 width=29) (actual time=0.046..0.047 rows=5.00 loops=1)
+  Sort Key: s.base_price
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=24
+  ->  Nested Loop  (cost=0.16..13.95 rows=1 width=29) (actual time=0.019..0.032 rows=5.00 loops=1)
+        Buffers: shared hit=21
+        ->  Seq Scan on services s  (cost=0.00..1.60 rows=57 width=33) (actual time=0.004..0.008 rows=57.00 loops=1)
+              Filter: is_active
+              Rows Removed by Filter: 3
+              Buffers: shared hit=1
+        ->  Memoize  (cost=0.16..1.02 rows=1 width=4) (actual time=0.000..0.000 rows=0.09 loops=57)
+              Cache Key: s.category_id
+              Cache Mode: logical
+              Hits: 47  Misses: 10  Evictions: 0  Overflows: 0  Memory Usage: 1kB
+              Buffers: shared hit=20
+              ->  Index Scan using service_categories_pkey on service_categories c  (cost=0.15..1.01 rows=1 width=4) (actual time=0.001..0.001 rows=0.10 loops=10)
+                    Index Cond: (category_id = s.category_id)
+                    Filter: ((category_name)::text = 'AC Repair'::text)
+                    Rows Removed by Filter: 1
+                    Index Searches: 10
+                    Buffers: shared hit=20
+Planning:
+  Buffers: shared hit=198
+Planning Time: 0.372 ms
+Execution Time: 0.079 ms

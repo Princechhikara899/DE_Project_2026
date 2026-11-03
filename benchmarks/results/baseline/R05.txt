@@ -1,0 +1,39 @@
+=== R05 run 1 ===
+Sort  (cost=4797.12..4797.36 rows=95 width=20) (actual time=7.571..7.572 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2547
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=95 width=20) (actual time=7.500..7.561 rows=46.00 loops=1)
+        Filter: ((scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'REQUESTED'::text))
+        Rows Removed by Filter: 149954
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.148 ms
+Execution Time: 7.587 ms
+=== R05 run 2 ===
+Sort  (cost=4797.12..4797.36 rows=95 width=20) (actual time=7.331..7.332 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2547
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=95 width=20) (actual time=7.258..7.321 rows=46.00 loops=1)
+        Filter: ((scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'REQUESTED'::text))
+        Rows Removed by Filter: 149954
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.142 ms
+Execution Time: 7.346 ms
+=== R05 run 3 ===
+Sort  (cost=4797.12..4797.36 rows=95 width=20) (actual time=7.233..7.235 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=2547
+  ->  Seq Scan on bookings  (cost=0.00..4794.00 rows=95 width=20) (actual time=7.164..7.223 rows=46.00 loops=1)
+        Filter: ((scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'REQUESTED'::text))
+        Rows Removed by Filter: 149954
+        Buffers: shared hit=2544
+Planning:
+  Buffers: shared hit=96
+Planning Time: 0.146 ms
+Execution Time: 7.250 ms

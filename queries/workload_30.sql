@@ -257,9 +257,9 @@ LIMIT 30;
 -- @W01
 -- Customer app: book an AC service for 3 July 2026, 11:00
 INSERT INTO bookings (booking_id, customer_id, service_id, city_id, pincode, booked_at, scheduled_start, scheduled_end,
-                      status, price, payment_method)
+                      status, price, discount, cancellation_fee, payment_method)
 VALUES (90000001, 226, 19, 1, '560034', '2026-07-01 09:00:00+05:30', '2026-07-03 11:00:00+05:30',
-        '2026-07-03 11:45:00+05:30', 'REQUESTED', 599.00, 'UPI');
+        '2026-07-03 11:45:00+05:30', 'REQUESTED', 599.00, 0.00, 0.00, 'UPI');
 
 -- @W02
 -- Dispatch: give the oldest REQUESTED booking to professional 425

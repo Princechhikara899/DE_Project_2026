@@ -1,0 +1,138 @@
+=== R09 run 1 ===
+Sort  (cost=5240.16..5240.66 rows=200 width=258) (actual time=6.142..6.520 rows=10.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE (b.started_at > (b.scheduled_start + '00:15:00'::interval))))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2559
+  ->  Finalize GroupAggregate  (cost=5186.72..5232.52 rows=200 width=258) (actual time=6.132..6.514 rows=10.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=2556
+        ->  Gather Merge  (cost=5186.72..5225.47 rows=340 width=234) (actual time=6.121..6.506 rows=20.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=2556
+              ->  Sort  (cost=4186.71..4187.21 rows=200 width=234) (actual time=4.911..4.912 rows=10.00 loops=2)
+                    Sort Key: c.category_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2556
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4177.06..4179.06 rows=200 width=234) (actual time=4.155..4.157 rows=10.00 loops=2)
+                          Group Key: c.category_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=2548
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=19.55..4128.79 rows=3862 width=234) (actual time=3.197..3.911 rows=3555.50 loops=2)
+                                Hash Cond: (s.category_id = c.category_id)
+                                Buffers: shared hit=2548
+                                ->  Hash Join  (cost=2.35..4101.32 rows=3862 width=20) (actual time=3.182..3.692 rows=3555.50 loops=2)
+                                      Hash Cond: (b.service_id = s.service_id)
+                                      Buffers: shared hit=2546
+                                      ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.12 rows=3862 width=20) (actual time=3.158..3.454 rows=3555.50 loops=2)
+                                            Filter: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'COMPLETED'::text))
+                                            Rows Removed by Filter: 71444
+                                            Buffers: shared hit=2544
+                                      ->  Hash  (cost=1.60..1.60 rows=60 width=8) (actual time=0.019..0.019 rows=60.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=2
+                                            ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=8) (actual time=0.013..0.014 rows=60.00 loops=2)
+                                                  Buffers: shared hit=2
+                                ->  Hash  (cost=13.20..13.20 rows=320 width=222) (actual time=0.012..0.012 rows=10.00 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on service_categories c  (cost=0.00..13.20 rows=320 width=222) (actual time=0.009..0.009 rows=10.00 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=254
+Planning Time: 0.354 ms
+Execution Time: 6.567 ms
+=== R09 run 2 ===
+Sort  (cost=5240.16..5240.66 rows=200 width=258) (actual time=5.378..5.944 rows=10.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE (b.started_at > (b.scheduled_start + '00:15:00'::interval))))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2559
+  ->  Finalize GroupAggregate  (cost=5186.72..5232.52 rows=200 width=258) (actual time=5.365..5.937 rows=10.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=2556
+        ->  Gather Merge  (cost=5186.72..5225.47 rows=340 width=234) (actual time=5.354..5.923 rows=20.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=2556
+              ->  Sort  (cost=4186.71..4187.21 rows=200 width=234) (actual time=4.355..4.356 rows=10.00 loops=2)
+                    Sort Key: c.category_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2556
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4177.06..4179.06 rows=200 width=234) (actual time=4.340..4.341 rows=10.00 loops=2)
+                          Group Key: c.category_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=2548
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=19.55..4128.79 rows=3862 width=234) (actual time=3.318..4.079 rows=3555.50 loops=2)
+                                Hash Cond: (s.category_id = c.category_id)
+                                Buffers: shared hit=2548
+                                ->  Hash Join  (cost=2.35..4101.32 rows=3862 width=20) (actual time=3.300..3.846 rows=3555.50 loops=2)
+                                      Hash Cond: (b.service_id = s.service_id)
+                                      Buffers: shared hit=2546
+                                      ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.12 rows=3862 width=20) (actual time=3.277..3.596 rows=3555.50 loops=2)
+                                            Filter: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'COMPLETED'::text))
+                                            Rows Removed by Filter: 71444
+                                            Buffers: shared hit=2544
+                                      ->  Hash  (cost=1.60..1.60 rows=60 width=8) (actual time=0.019..0.019 rows=60.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=2
+                                            ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=8) (actual time=0.013..0.015 rows=60.00 loops=2)
+                                                  Buffers: shared hit=2
+                                ->  Hash  (cost=13.20..13.20 rows=320 width=222) (actual time=0.015..0.015 rows=10.00 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on service_categories c  (cost=0.00..13.20 rows=320 width=222) (actual time=0.012..0.012 rows=10.00 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=254
+Planning Time: 0.334 ms
+Execution Time: 5.986 ms
+=== R09 run 3 ===
+Sort  (cost=5240.16..5240.66 rows=200 width=258) (actual time=5.375..5.930 rows=10.00 loops=1)
+  Sort Key: (round(((100.0 * (count(*) FILTER (WHERE (b.started_at > (b.scheduled_start + '00:15:00'::interval))))::numeric) / (count(*))::numeric), 1)) DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2559
+  ->  Finalize GroupAggregate  (cost=5186.72..5232.52 rows=200 width=258) (actual time=5.357..5.923 rows=10.00 loops=1)
+        Group Key: c.category_name
+        Buffers: shared hit=2556
+        ->  Gather Merge  (cost=5186.72..5225.47 rows=340 width=234) (actual time=5.350..5.912 rows=20.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=2556
+              ->  Sort  (cost=4186.71..4187.21 rows=200 width=234) (actual time=4.312..4.313 rows=10.00 loops=2)
+                    Sort Key: c.category_name
+                    Sort Method: quicksort  Memory: 25kB
+                    Buffers: shared hit=2556
+                    Worker 0:  Sort Method: quicksort  Memory: 25kB
+                    ->  Partial HashAggregate  (cost=4177.06..4179.06 rows=200 width=234) (actual time=4.299..4.301 rows=10.00 loops=2)
+                          Group Key: c.category_name
+                          Batches: 1  Memory Usage: 32kB
+                          Buffers: shared hit=2548
+                          Worker 0:  Batches: 1  Memory Usage: 32kB
+                          ->  Hash Join  (cost=19.55..4128.79 rows=3862 width=234) (actual time=3.314..4.047 rows=3555.50 loops=2)
+                                Hash Cond: (s.category_id = c.category_id)
+                                Buffers: shared hit=2548
+                                ->  Hash Join  (cost=2.35..4101.32 rows=3862 width=20) (actual time=3.299..3.819 rows=3555.50 loops=2)
+                                      Hash Cond: (b.service_id = s.service_id)
+                                      Buffers: shared hit=2546
+                                      ->  Parallel Seq Scan on bookings b  (cost=0.00..4088.12 rows=3862 width=20) (actual time=3.277..3.578 rows=3555.50 loops=2)
+                                            Filter: ((scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone) AND ((status)::text = 'COMPLETED'::text))
+                                            Rows Removed by Filter: 71444
+                                            Buffers: shared hit=2544
+                                      ->  Hash  (cost=1.60..1.60 rows=60 width=8) (actual time=0.018..0.018 rows=60.00 loops=2)
+                                            Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                            Buffers: shared hit=2
+                                            ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=8) (actual time=0.012..0.014 rows=60.00 loops=2)
+                                                  Buffers: shared hit=2
+                                ->  Hash  (cost=13.20..13.20 rows=320 width=222) (actual time=0.012..0.012 rows=10.00 loops=2)
+                                      Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                      Buffers: shared hit=2
+                                      ->  Seq Scan on service_categories c  (cost=0.00..13.20 rows=320 width=222) (actual time=0.009..0.010 rows=10.00 loops=2)
+                                            Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=254
+Planning Time: 0.338 ms
+Execution Time: 5.975 ms
