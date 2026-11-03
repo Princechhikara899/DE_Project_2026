@@ -1,0 +1,27 @@
+{
+  "team_number": "T0034",
+  "group_lead": {
+    "name": "Prince",
+    "enrollment_no": "2501010641",
+    "github": "Princechhikara899"
+  },
+  "members": [
+    {
+      "name": "Manisha Jain",
+      "enrollment_no": "2501010258",
+      "github": "hellomanishahere"
+    },
+    {
+      "name": "Gamini Ganapathi Ranga Rithwik",
+      "enrollment_no": "2501010164",
+      "github": "Ritwick2023"
+    },
+    {
+      "name": "Ananya Agrahari",
+      "enrollment_no": "2501010624",
+      "github": "ananya26102006"
+    }
+  ],
+  "postgres_version": "18.4",
+  "laptop_used_for_benchmarks": "MacBook Pro 14-inch (Nov 2024), Apple M4, 16 GB RAM"
+}
