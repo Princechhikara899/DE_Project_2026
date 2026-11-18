@@ -1,0 +1,95 @@
+=== R18 run 1 ===
+Limit  (cost=992.53..992.65 rows=50 width=40) (actual time=3.987..3.990 rows=50.00 loops=1)
+  Buffers: shared hit=561
+  ->  Sort  (cost=992.53..1011.92 rows=7756 width=40) (actual time=3.987..3.987 rows=50.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=561
+        ->  Bitmap Heap Scan on reviews r  (cost=61.93..734.88 rows=7756 width=40) (actual time=0.368..3.430 rows=7772.00 loops=1)
+              Recheck Cond: (comment ~~* '%late%'::text)
+              Heap Blocks: exact=548
+              Buffers: shared hit=558
+              ->  Bitmap Index Scan on idx_reviews_comment_trgm  (cost=0.00..59.99 rows=7756 width=0) (actual time=0.334..0.335 rows=7772.00 loops=1)
+                    Index Cond: (comment ~~* '%late%'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=115
+Planning Time: 1.884 ms
+Execution Time: 4.035 ms
+=== R18 run 2 ===
+Limit  (cost=992.53..992.65 rows=50 width=40) (actual time=4.414..4.416 rows=50.00 loops=1)
+  Buffers: shared hit=561
+  ->  Sort  (cost=992.53..1011.92 rows=7756 width=40) (actual time=4.413..4.414 rows=50.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=561
+        ->  Bitmap Heap Scan on reviews r  (cost=61.93..734.88 rows=7756 width=40) (actual time=0.342..3.820 rows=7772.00 loops=1)
+              Recheck Cond: (comment ~~* '%late%'::text)
+              Heap Blocks: exact=548
+              Buffers: shared hit=558
+              ->  Bitmap Index Scan on idx_reviews_comment_trgm  (cost=0.00..59.99 rows=7756 width=0) (actual time=0.311..0.311 rows=7772.00 loops=1)
+                    Index Cond: (comment ~~* '%late%'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.546 ms
+Execution Time: 4.451 ms
+=== R18 run 3 ===
+Limit  (cost=992.53..992.65 rows=50 width=40) (actual time=4.265..4.268 rows=50.00 loops=1)
+  Buffers: shared hit=561
+  ->  Sort  (cost=992.53..1011.92 rows=7756 width=40) (actual time=4.265..4.266 rows=50.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=561
+        ->  Bitmap Heap Scan on reviews r  (cost=61.93..734.88 rows=7756 width=40) (actual time=0.341..3.635 rows=7772.00 loops=1)
+              Recheck Cond: (comment ~~* '%late%'::text)
+              Heap Blocks: exact=548
+              Buffers: shared hit=558
+              ->  Bitmap Index Scan on idx_reviews_comment_trgm  (cost=0.00..59.99 rows=7756 width=0) (actual time=0.309..0.310 rows=7772.00 loops=1)
+                    Index Cond: (comment ~~* '%late%'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.526 ms
+Execution Time: 4.301 ms
+=== R18 run 4 ===
+Limit  (cost=992.53..992.65 rows=50 width=40) (actual time=4.008..4.011 rows=50.00 loops=1)
+  Buffers: shared hit=561
+  ->  Sort  (cost=992.53..1011.92 rows=7756 width=40) (actual time=4.008..4.009 rows=50.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=561
+        ->  Bitmap Heap Scan on reviews r  (cost=61.93..734.88 rows=7756 width=40) (actual time=0.345..3.457 rows=7772.00 loops=1)
+              Recheck Cond: (comment ~~* '%late%'::text)
+              Heap Blocks: exact=548
+              Buffers: shared hit=558
+              ->  Bitmap Index Scan on idx_reviews_comment_trgm  (cost=0.00..59.99 rows=7756 width=0) (actual time=0.314..0.314 rows=7772.00 loops=1)
+                    Index Cond: (comment ~~* '%late%'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.595 ms
+Execution Time: 4.043 ms
+=== R18 run 5 ===
+Limit  (cost=992.53..992.65 rows=50 width=40) (actual time=4.034..4.036 rows=50.00 loops=1)
+  Buffers: shared hit=561
+  ->  Sort  (cost=992.53..1011.92 rows=7756 width=40) (actual time=4.033..4.034 rows=50.00 loops=1)
+        Sort Key: created_at DESC
+        Sort Method: top-N heapsort  Memory: 32kB
+        Buffers: shared hit=561
+        ->  Bitmap Heap Scan on reviews r  (cost=61.93..734.88 rows=7756 width=40) (actual time=0.343..3.475 rows=7772.00 loops=1)
+              Recheck Cond: (comment ~~* '%late%'::text)
+              Heap Blocks: exact=548
+              Buffers: shared hit=558
+              ->  Bitmap Index Scan on idx_reviews_comment_trgm  (cost=0.00..59.99 rows=7756 width=0) (actual time=0.312..0.312 rows=7772.00 loops=1)
+                    Index Cond: (comment ~~* '%late%'::text)
+                    Index Searches: 1
+                    Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=115
+Planning Time: 0.555 ms
+Execution Time: 4.068 ms

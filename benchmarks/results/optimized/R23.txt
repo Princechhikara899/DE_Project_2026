@@ -1,0 +1,85 @@
+=== R23 run 1 ===
+Hash Join  (cost=8.45..10.22 rows=1 width=114) (actual time=0.018..0.021 rows=1.00 loops=1)
+  Hash Cond: (s.service_id = b.service_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.002..0.003 rows=60.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=8.44..8.44 rows=1 width=98) (actual time=0.013..0.013 rows=1.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=4
+        ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..8.44 rows=1 width=98) (actual time=0.010..0.010 rows=1.00 loops=1)
+              Index Cond: (booking_id = 123456)
+              Index Searches: 1
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=397
+Planning Time: 0.541 ms
+Execution Time: 0.044 ms
+=== R23 run 2 ===
+Hash Join  (cost=8.45..10.22 rows=1 width=114) (actual time=0.018..0.021 rows=1.00 loops=1)
+  Hash Cond: (s.service_id = b.service_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.001..0.003 rows=60.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=8.44..8.44 rows=1 width=98) (actual time=0.013..0.013 rows=1.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=4
+        ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..8.44 rows=1 width=98) (actual time=0.010..0.010 rows=1.00 loops=1)
+              Index Cond: (booking_id = 123456)
+              Index Searches: 1
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=397
+Planning Time: 0.511 ms
+Execution Time: 0.044 ms
+=== R23 run 3 ===
+Hash Join  (cost=8.45..10.22 rows=1 width=114) (actual time=0.019..0.021 rows=1.00 loops=1)
+  Hash Cond: (s.service_id = b.service_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.002..0.002 rows=60.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=8.44..8.44 rows=1 width=98) (actual time=0.013..0.013 rows=1.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=4
+        ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..8.44 rows=1 width=98) (actual time=0.010..0.010 rows=1.00 loops=1)
+              Index Cond: (booking_id = 123456)
+              Index Searches: 1
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=397
+Planning Time: 0.587 ms
+Execution Time: 0.044 ms
+=== R23 run 4 ===
+Hash Join  (cost=8.45..10.22 rows=1 width=114) (actual time=0.018..0.021 rows=1.00 loops=1)
+  Hash Cond: (s.service_id = b.service_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.002..0.003 rows=60.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=8.44..8.44 rows=1 width=98) (actual time=0.013..0.013 rows=1.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=4
+        ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..8.44 rows=1 width=98) (actual time=0.010..0.010 rows=1.00 loops=1)
+              Index Cond: (booking_id = 123456)
+              Index Searches: 1
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=397
+Planning Time: 0.488 ms
+Execution Time: 0.043 ms
+=== R23 run 5 ===
+Hash Join  (cost=8.45..10.22 rows=1 width=114) (actual time=0.016..0.019 rows=1.00 loops=1)
+  Hash Cond: (s.service_id = b.service_id)
+  Buffers: shared hit=5
+  ->  Seq Scan on services s  (cost=0.00..1.60 rows=60 width=20) (actual time=0.001..0.003 rows=60.00 loops=1)
+        Buffers: shared hit=1
+  ->  Hash  (cost=8.44..8.44 rows=1 width=98) (actual time=0.011..0.011 rows=1.00 loops=1)
+        Buckets: 1024  Batches: 1  Memory Usage: 9kB
+        Buffers: shared hit=4
+        ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..8.44 rows=1 width=98) (actual time=0.009..0.009 rows=1.00 loops=1)
+              Index Cond: (booking_id = 123456)
+              Index Searches: 1
+              Buffers: shared hit=4
+Planning:
+  Buffers: shared hit=397
+Planning Time: 0.484 ms
+Execution Time: 0.039 ms

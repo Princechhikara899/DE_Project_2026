@@ -1,0 +1,195 @@
+=== R11 run 1 ===
+Limit  (cost=2023.30..2023.33 rows=10 width=32) (actual time=0.461..0.462 rows=10.00 loops=1)
+  Buffers: shared hit=1219
+  ->  Sort  (cost=2023.30..2023.45 rows=60 width=32) (actual time=0.460..0.461 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=1219
+        ->  GroupAggregate  (cost=2018.00..2022.00 rows=60 width=32) (actual time=0.429..0.450 rows=60.00 loops=1)
+              Group Key: s.service_name
+              Buffers: shared hit=1216
+              ->  Sort  (cost=2018.00..2018.68 rows=272 width=23) (actual time=0.426..0.431 rows=269.00 loops=1)
+                    Sort Key: s.service_name
+                    Sort Method: quicksort  Memory: 36kB
+                    Buffers: shared hit=1216
+                    ->  Nested Loop  (cost=0.85..2007.01 rows=272 width=23) (actual time=0.016..0.354 rows=269.00 loops=1)
+                          Buffers: shared hit=1213
+                          ->  Nested Loop  (cost=0.70..1990.72 rows=272 width=11) (actual time=0.012..0.293 rows=269.00 loops=1)
+                                Buffers: shared hit=1093
+                                ->  Index Scan using idx_reschedules_created_at on reschedules r  (cost=0.28..15.72 rows=272 width=11) (actual time=0.005..0.025 rows=269.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=17
+                                ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..7.26 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=269)
+                                      Index Cond: (booking_id = r.booking_id)
+                                      Index Searches: 269
+                                      Buffers: shared hit=1076
+                          ->  Memoize  (cost=0.15..0.17 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=269)
+                                Cache Key: b.service_id
+                                Cache Mode: logical
+                                Hits: 209  Misses: 60  Evictions: 0  Overflows: 0  Memory Usage: 8kB
+                                Buffers: shared hit=120
+                                ->  Index Scan using services_pkey on services s  (cost=0.14..0.16 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=60)
+                                      Index Cond: (service_id = b.service_id)
+                                      Index Searches: 60
+                                      Buffers: shared hit=120
+Planning:
+  Buffers: shared hit=420 dirtied=1
+Planning Time: 0.732 ms
+Execution Time: 0.490 ms
+=== R11 run 2 ===
+Limit  (cost=2023.30..2023.33 rows=10 width=32) (actual time=0.481..0.482 rows=10.00 loops=1)
+  Buffers: shared hit=1219
+  ->  Sort  (cost=2023.30..2023.45 rows=60 width=32) (actual time=0.481..0.481 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=1219
+        ->  GroupAggregate  (cost=2018.00..2022.00 rows=60 width=32) (actual time=0.445..0.468 rows=60.00 loops=1)
+              Group Key: s.service_name
+              Buffers: shared hit=1216
+              ->  Sort  (cost=2018.00..2018.68 rows=272 width=23) (actual time=0.443..0.447 rows=269.00 loops=1)
+                    Sort Key: s.service_name
+                    Sort Method: quicksort  Memory: 36kB
+                    Buffers: shared hit=1216
+                    ->  Nested Loop  (cost=0.85..2007.01 rows=272 width=23) (actual time=0.018..0.368 rows=269.00 loops=1)
+                          Buffers: shared hit=1213
+                          ->  Nested Loop  (cost=0.70..1990.72 rows=272 width=11) (actual time=0.014..0.308 rows=269.00 loops=1)
+                                Buffers: shared hit=1093
+                                ->  Index Scan using idx_reschedules_created_at on reschedules r  (cost=0.28..15.72 rows=272 width=11) (actual time=0.004..0.023 rows=269.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=17
+                                ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..7.26 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=269)
+                                      Index Cond: (booking_id = r.booking_id)
+                                      Index Searches: 269
+                                      Buffers: shared hit=1076
+                          ->  Memoize  (cost=0.15..0.17 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=269)
+                                Cache Key: b.service_id
+                                Cache Mode: logical
+                                Hits: 209  Misses: 60  Evictions: 0  Overflows: 0  Memory Usage: 8kB
+                                Buffers: shared hit=120
+                                ->  Index Scan using services_pkey on services s  (cost=0.14..0.16 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=60)
+                                      Index Cond: (service_id = b.service_id)
+                                      Index Searches: 60
+                                      Buffers: shared hit=120
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.779 ms
+Execution Time: 0.525 ms
+=== R11 run 3 ===
+Limit  (cost=2023.30..2023.33 rows=10 width=32) (actual time=0.421..0.422 rows=10.00 loops=1)
+  Buffers: shared hit=1219
+  ->  Sort  (cost=2023.30..2023.45 rows=60 width=32) (actual time=0.420..0.421 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=1219
+        ->  GroupAggregate  (cost=2018.00..2022.00 rows=60 width=32) (actual time=0.390..0.411 rows=60.00 loops=1)
+              Group Key: s.service_name
+              Buffers: shared hit=1216
+              ->  Sort  (cost=2018.00..2018.68 rows=272 width=23) (actual time=0.388..0.392 rows=269.00 loops=1)
+                    Sort Key: s.service_name
+                    Sort Method: quicksort  Memory: 36kB
+                    Buffers: shared hit=1216
+                    ->  Nested Loop  (cost=0.85..2007.01 rows=272 width=23) (actual time=0.013..0.319 rows=269.00 loops=1)
+                          Buffers: shared hit=1213
+                          ->  Nested Loop  (cost=0.70..1990.72 rows=272 width=11) (actual time=0.010..0.261 rows=269.00 loops=1)
+                                Buffers: shared hit=1093
+                                ->  Index Scan using idx_reschedules_created_at on reschedules r  (cost=0.28..15.72 rows=272 width=11) (actual time=0.003..0.019 rows=269.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=17
+                                ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..7.26 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=269)
+                                      Index Cond: (booking_id = r.booking_id)
+                                      Index Searches: 269
+                                      Buffers: shared hit=1076
+                          ->  Memoize  (cost=0.15..0.17 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=269)
+                                Cache Key: b.service_id
+                                Cache Mode: logical
+                                Hits: 209  Misses: 60  Evictions: 0  Overflows: 0  Memory Usage: 8kB
+                                Buffers: shared hit=120
+                                ->  Index Scan using services_pkey on services s  (cost=0.14..0.16 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=60)
+                                      Index Cond: (service_id = b.service_id)
+                                      Index Searches: 60
+                                      Buffers: shared hit=120
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.657 ms
+Execution Time: 0.449 ms
+=== R11 run 4 ===
+Limit  (cost=2023.30..2023.33 rows=10 width=32) (actual time=0.437..0.438 rows=10.00 loops=1)
+  Buffers: shared hit=1219
+  ->  Sort  (cost=2023.30..2023.45 rows=60 width=32) (actual time=0.436..0.437 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=1219
+        ->  GroupAggregate  (cost=2018.00..2022.00 rows=60 width=32) (actual time=0.406..0.427 rows=60.00 loops=1)
+              Group Key: s.service_name
+              Buffers: shared hit=1216
+              ->  Sort  (cost=2018.00..2018.68 rows=272 width=23) (actual time=0.403..0.408 rows=269.00 loops=1)
+                    Sort Key: s.service_name
+                    Sort Method: quicksort  Memory: 36kB
+                    Buffers: shared hit=1216
+                    ->  Nested Loop  (cost=0.85..2007.01 rows=272 width=23) (actual time=0.013..0.332 rows=269.00 loops=1)
+                          Buffers: shared hit=1213
+                          ->  Nested Loop  (cost=0.70..1990.72 rows=272 width=11) (actual time=0.010..0.274 rows=269.00 loops=1)
+                                Buffers: shared hit=1093
+                                ->  Index Scan using idx_reschedules_created_at on reschedules r  (cost=0.28..15.72 rows=272 width=11) (actual time=0.003..0.020 rows=269.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=17
+                                ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..7.26 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=269)
+                                      Index Cond: (booking_id = r.booking_id)
+                                      Index Searches: 269
+                                      Buffers: shared hit=1076
+                          ->  Memoize  (cost=0.15..0.17 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=269)
+                                Cache Key: b.service_id
+                                Cache Mode: logical
+                                Hits: 209  Misses: 60  Evictions: 0  Overflows: 0  Memory Usage: 8kB
+                                Buffers: shared hit=120
+                                ->  Index Scan using services_pkey on services s  (cost=0.14..0.16 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=60)
+                                      Index Cond: (service_id = b.service_id)
+                                      Index Searches: 60
+                                      Buffers: shared hit=120
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.646 ms
+Execution Time: 0.466 ms
+=== R11 run 5 ===
+Limit  (cost=2023.30..2023.33 rows=10 width=32) (actual time=0.422..0.423 rows=10.00 loops=1)
+  Buffers: shared hit=1219
+  ->  Sort  (cost=2023.30..2023.45 rows=60 width=32) (actual time=0.422..0.422 rows=10.00 loops=1)
+        Sort Key: (count(*)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=1219
+        ->  GroupAggregate  (cost=2018.00..2022.00 rows=60 width=32) (actual time=0.390..0.412 rows=60.00 loops=1)
+              Group Key: s.service_name
+              Buffers: shared hit=1216
+              ->  Sort  (cost=2018.00..2018.68 rows=272 width=23) (actual time=0.388..0.393 rows=269.00 loops=1)
+                    Sort Key: s.service_name
+                    Sort Method: quicksort  Memory: 36kB
+                    Buffers: shared hit=1216
+                    ->  Nested Loop  (cost=0.85..2007.01 rows=272 width=23) (actual time=0.012..0.319 rows=269.00 loops=1)
+                          Buffers: shared hit=1213
+                          ->  Nested Loop  (cost=0.70..1990.72 rows=272 width=11) (actual time=0.009..0.261 rows=269.00 loops=1)
+                                Buffers: shared hit=1093
+                                ->  Index Scan using idx_reschedules_created_at on reschedules r  (cost=0.28..15.72 rows=272 width=11) (actual time=0.003..0.020 rows=269.00 loops=1)
+                                      Index Cond: ((created_at >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (created_at < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                                      Index Searches: 1
+                                      Buffers: shared hit=17
+                                ->  Index Scan using bookings_pkey on bookings b  (cost=0.42..7.26 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=269)
+                                      Index Cond: (booking_id = r.booking_id)
+                                      Index Searches: 269
+                                      Buffers: shared hit=1076
+                          ->  Memoize  (cost=0.15..0.17 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=269)
+                                Cache Key: b.service_id
+                                Cache Mode: logical
+                                Hits: 209  Misses: 60  Evictions: 0  Overflows: 0  Memory Usage: 8kB
+                                Buffers: shared hit=120
+                                ->  Index Scan using services_pkey on services s  (cost=0.14..0.16 rows=1 width=20) (actual time=0.000..0.000 rows=1.00 loops=60)
+                                      Index Cond: (service_id = b.service_id)
+                                      Index Searches: 60
+                                      Buffers: shared hit=120
+Planning:
+  Buffers: shared hit=419
+Planning Time: 0.662 ms
+Execution Time: 0.448 ms

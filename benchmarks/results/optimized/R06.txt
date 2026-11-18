@@ -1,0 +1,45 @@
+=== R06 run 1 ===
+Index Scan using idx_customers_phone on customers  (cost=0.29..8.31 rows=1 width=24) (actual time=0.013..0.013 rows=1.00 loops=1)
+  Index Cond: ((phone)::text = '9100001042'::text)
+  Index Searches: 1
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.204 ms
+Execution Time: 0.027 ms
+=== R06 run 2 ===
+Index Scan using idx_customers_phone on customers  (cost=0.29..8.31 rows=1 width=24) (actual time=0.009..0.009 rows=1.00 loops=1)
+  Index Cond: ((phone)::text = '9100001042'::text)
+  Index Searches: 1
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.162 ms
+Execution Time: 0.022 ms
+=== R06 run 3 ===
+Index Scan using idx_customers_phone on customers  (cost=0.29..8.31 rows=1 width=24) (actual time=0.010..0.010 rows=1.00 loops=1)
+  Index Cond: ((phone)::text = '9100001042'::text)
+  Index Searches: 1
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.168 ms
+Execution Time: 0.023 ms
+=== R06 run 4 ===
+Index Scan using idx_customers_phone on customers  (cost=0.29..8.31 rows=1 width=24) (actual time=0.009..0.010 rows=1.00 loops=1)
+  Index Cond: ((phone)::text = '9100001042'::text)
+  Index Searches: 1
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.182 ms
+Execution Time: 0.023 ms
+=== R06 run 5 ===
+Index Scan using idx_customers_phone on customers  (cost=0.29..8.31 rows=1 width=24) (actual time=0.009..0.009 rows=1.00 loops=1)
+  Index Cond: ((phone)::text = '9100001042'::text)
+  Index Searches: 1
+  Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=95
+Planning Time: 0.159 ms
+Execution Time: 0.022 ms

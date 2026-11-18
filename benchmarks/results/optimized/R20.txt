@@ -1,0 +1,125 @@
+=== R20 run 1 ===
+WindowAgg  (cost=3284.34..3378.49 rows=5381 width=68) (actual time=1.470..1.477 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((bookings.scheduled_start)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=176
+  ->  Sort  (cost=3284.33..3297.78 rows=5381 width=36) (actual time=1.466..1.467 rows=30.00 loops=1)
+        Sort Key: ((bookings.scheduled_start)::date)
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=2870.16..2950.88 rows=5381 width=36) (actual time=1.440..1.457 rows=30.00 loops=1)
+              Group Key: (bookings.scheduled_start)::date
+              Batches: 1  Memory Usage: 169kB
+              Buffers: shared hit=173
+              ->  Bitmap Heap Scan on bookings  (cost=139.13..2819.15 rows=6801 width=12) (actual time=0.117..0.847 rows=7111.00 loops=1)
+                    Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Blocks: exact=161
+                    Buffers: shared hit=173
+                    ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..137.43 rows=6801 width=0) (actual time=0.104..0.104 rows=7111.00 loops=1)
+                          Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Index Searches: 1
+                          Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.453 ms
+Execution Time: 1.519 ms
+=== R20 run 2 ===
+WindowAgg  (cost=3284.34..3378.49 rows=5381 width=68) (actual time=1.388..1.395 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((bookings.scheduled_start)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=176
+  ->  Sort  (cost=3284.33..3297.78 rows=5381 width=36) (actual time=1.384..1.384 rows=30.00 loops=1)
+        Sort Key: ((bookings.scheduled_start)::date)
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=2870.16..2950.88 rows=5381 width=36) (actual time=1.358..1.375 rows=30.00 loops=1)
+              Group Key: (bookings.scheduled_start)::date
+              Batches: 1  Memory Usage: 169kB
+              Buffers: shared hit=173
+              ->  Bitmap Heap Scan on bookings  (cost=139.13..2819.15 rows=6801 width=12) (actual time=0.107..0.796 rows=7111.00 loops=1)
+                    Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Blocks: exact=161
+                    Buffers: shared hit=173
+                    ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..137.43 rows=6801 width=0) (actual time=0.095..0.095 rows=7111.00 loops=1)
+                          Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Index Searches: 1
+                          Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.405 ms
+Execution Time: 1.434 ms
+=== R20 run 3 ===
+WindowAgg  (cost=3284.34..3378.49 rows=5381 width=68) (actual time=1.407..1.414 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((bookings.scheduled_start)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=176
+  ->  Sort  (cost=3284.33..3297.78 rows=5381 width=36) (actual time=1.403..1.403 rows=30.00 loops=1)
+        Sort Key: ((bookings.scheduled_start)::date)
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=2870.16..2950.88 rows=5381 width=36) (actual time=1.377..1.393 rows=30.00 loops=1)
+              Group Key: (bookings.scheduled_start)::date
+              Batches: 1  Memory Usage: 169kB
+              Buffers: shared hit=173
+              ->  Bitmap Heap Scan on bookings  (cost=139.13..2819.15 rows=6801 width=12) (actual time=0.111..0.813 rows=7111.00 loops=1)
+                    Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Blocks: exact=161
+                    Buffers: shared hit=173
+                    ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..137.43 rows=6801 width=0) (actual time=0.098..0.098 rows=7111.00 loops=1)
+                          Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Index Searches: 1
+                          Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.447 ms
+Execution Time: 1.454 ms
+=== R20 run 4 ===
+WindowAgg  (cost=3284.34..3378.49 rows=5381 width=68) (actual time=1.406..1.413 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((bookings.scheduled_start)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=176
+  ->  Sort  (cost=3284.33..3297.78 rows=5381 width=36) (actual time=1.402..1.403 rows=30.00 loops=1)
+        Sort Key: ((bookings.scheduled_start)::date)
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=2870.16..2950.88 rows=5381 width=36) (actual time=1.376..1.393 rows=30.00 loops=1)
+              Group Key: (bookings.scheduled_start)::date
+              Batches: 1  Memory Usage: 169kB
+              Buffers: shared hit=173
+              ->  Bitmap Heap Scan on bookings  (cost=139.13..2819.15 rows=6801 width=12) (actual time=0.107..0.808 rows=7111.00 loops=1)
+                    Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Blocks: exact=161
+                    Buffers: shared hit=173
+                    ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..137.43 rows=6801 width=0) (actual time=0.095..0.095 rows=7111.00 loops=1)
+                          Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Index Searches: 1
+                          Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.417 ms
+Execution Time: 1.453 ms
+=== R20 run 5 ===
+WindowAgg  (cost=3284.34..3378.49 rows=5381 width=68) (actual time=1.401..1.409 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((bookings.scheduled_start)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=176
+  ->  Sort  (cost=3284.33..3297.78 rows=5381 width=36) (actual time=1.398..1.399 rows=30.00 loops=1)
+        Sort Key: ((bookings.scheduled_start)::date)
+        Sort Method: quicksort  Memory: 25kB
+        Buffers: shared hit=176
+        ->  HashAggregate  (cost=2870.16..2950.88 rows=5381 width=36) (actual time=1.371..1.389 rows=30.00 loops=1)
+              Group Key: (bookings.scheduled_start)::date
+              Batches: 1  Memory Usage: 169kB
+              Buffers: shared hit=173
+              ->  Bitmap Heap Scan on bookings  (cost=139.13..2819.15 rows=6801 width=12) (actual time=0.107..0.801 rows=7111.00 loops=1)
+                    Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                    Heap Blocks: exact=161
+                    Buffers: shared hit=173
+                    ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..137.43 rows=6801 width=0) (actual time=0.096..0.096 rows=7111.00 loops=1)
+                          Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-01 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-07-01 00:00:00+05:30'::timestamp with time zone))
+                          Index Searches: 1
+                          Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=282
+Planning Time: 0.422 ms
+Execution Time: 1.450 ms

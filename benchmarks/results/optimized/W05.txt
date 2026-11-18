@@ -1,0 +1,60 @@
+=== W05 run 1 ===
+Update on bookings  (cost=0.15..9.44 rows=0 width=0) (actual time=1.559..1.560 rows=0.00 loops=1)
+  Buffers: shared hit=3038 dirtied=269 written=1
+  ->  Index Scan using idx_bookings_assigned_unstarted on bookings  (cost=0.15..9.44 rows=58 width=84) (actual time=0.009..0.051 rows=154.00 loops=1)
+        Index Cond: (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((started_at IS NULL) AND ((status)::text = 'ASSIGNED'::text))
+        Index Searches: 1
+        Buffers: shared hit=145
+Planning:
+  Buffers: shared hit=266
+Planning Time: 0.406 ms
+Execution Time: 1.602 ms
+=== W05 run 2 ===
+Update on bookings  (cost=0.15..9.44 rows=0 width=0) (actual time=1.518..1.519 rows=0.00 loops=1)
+  Buffers: shared hit=3292 dirtied=4 written=3
+  ->  Index Scan using idx_bookings_assigned_unstarted on bookings  (cost=0.15..9.44 rows=58 width=84) (actual time=0.011..0.065 rows=154.00 loops=1)
+        Index Cond: (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((started_at IS NULL) AND ((status)::text = 'ASSIGNED'::text))
+        Index Searches: 1
+        Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=266
+Planning Time: 0.395 ms
+Execution Time: 1.560 ms
+=== W05 run 3 ===
+Update on bookings  (cost=0.15..9.44 rows=0 width=0) (actual time=2.136..2.136 rows=0.00 loops=1)
+  Buffers: shared hit=3322 dirtied=5 written=4
+  ->  Index Scan using idx_bookings_assigned_unstarted on bookings  (cost=0.15..9.44 rows=58 width=84) (actual time=0.012..0.070 rows=154.00 loops=1)
+        Index Cond: (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((started_at IS NULL) AND ((status)::text = 'ASSIGNED'::text))
+        Index Searches: 1
+        Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=266
+Planning Time: 0.423 ms
+Execution Time: 2.180 ms
+=== W05 run 4 ===
+Update on bookings  (cost=0.15..9.44 rows=0 width=0) (actual time=1.383..1.383 rows=0.00 loops=1)
+  Buffers: shared hit=3301 dirtied=2 written=2
+  ->  Index Scan using idx_bookings_assigned_unstarted on bookings  (cost=0.15..9.44 rows=58 width=84) (actual time=0.013..0.068 rows=154.00 loops=1)
+        Index Cond: (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((started_at IS NULL) AND ((status)::text = 'ASSIGNED'::text))
+        Index Searches: 1
+        Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=266
+Planning Time: 0.400 ms
+Execution Time: 1.427 ms
+=== W05 run 5 ===
+Update on bookings  (cost=0.15..9.44 rows=0 width=0) (actual time=1.329..1.329 rows=0.00 loops=1)
+  Buffers: shared hit=3309 dirtied=2 written=2
+  ->  Index Scan using idx_bookings_assigned_unstarted on bookings  (cost=0.15..9.44 rows=58 width=84) (actual time=0.010..0.062 rows=154.00 loops=1)
+        Index Cond: (scheduled_end < '2026-07-02 00:00:00+05:30'::timestamp with time zone)
+        Filter: ((started_at IS NULL) AND ((status)::text = 'ASSIGNED'::text))
+        Index Searches: 1
+        Buffers: shared hit=140
+Planning:
+  Buffers: shared hit=266
+Planning Time: 0.401 ms
+Execution Time: 1.371 ms

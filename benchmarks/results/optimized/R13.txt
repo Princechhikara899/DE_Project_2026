@@ -1,0 +1,85 @@
+=== R13 run 1 ===
+Merge Anti Join  (cost=0.57..517.50 rows=266 width=22) (actual time=0.016..0.654 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=286
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..110.03 rows=2220 width=22) (actual time=0.004..0.184 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=35
+  ->  Index Only Scan using idx_bookings_cancelled_cust on bookings b  (cost=0.29..280.11 rows=12255 width=4) (actual time=0.009..0.283 rows=6062.00 loops=1)
+        Heap Fetches: 238
+        Index Searches: 1
+        Buffers: shared hit=251
+Planning:
+  Buffers: shared hit=364
+Planning Time: 0.609 ms
+Execution Time: 0.677 ms
+=== R13 run 2 ===
+Merge Anti Join  (cost=0.57..517.50 rows=266 width=22) (actual time=0.012..0.627 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=286
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..110.03 rows=2220 width=22) (actual time=0.004..0.179 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=35
+  ->  Index Only Scan using idx_bookings_cancelled_cust on bookings b  (cost=0.29..280.11 rows=12255 width=4) (actual time=0.005..0.263 rows=6062.00 loops=1)
+        Heap Fetches: 238
+        Index Searches: 1
+        Buffers: shared hit=251
+Planning:
+  Buffers: shared hit=364
+Planning Time: 0.552 ms
+Execution Time: 0.649 ms
+=== R13 run 3 ===
+Merge Anti Join  (cost=0.57..517.50 rows=266 width=22) (actual time=0.011..0.618 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=286
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..110.03 rows=2220 width=22) (actual time=0.003..0.176 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=35
+  ->  Index Only Scan using idx_bookings_cancelled_cust on bookings b  (cost=0.29..280.11 rows=12255 width=4) (actual time=0.005..0.258 rows=6062.00 loops=1)
+        Heap Fetches: 238
+        Index Searches: 1
+        Buffers: shared hit=251
+Planning:
+  Buffers: shared hit=364
+Planning Time: 0.569 ms
+Execution Time: 0.639 ms
+=== R13 run 4 ===
+Merge Anti Join  (cost=0.57..517.50 rows=266 width=22) (actual time=0.014..0.653 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=286
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..110.03 rows=2220 width=22) (actual time=0.004..0.181 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=35
+  ->  Index Only Scan using idx_bookings_cancelled_cust on bookings b  (cost=0.29..280.11 rows=12255 width=4) (actual time=0.006..0.282 rows=6062.00 loops=1)
+        Heap Fetches: 238
+        Index Searches: 1
+        Buffers: shared hit=251
+Planning:
+  Buffers: shared hit=364
+Planning Time: 0.634 ms
+Execution Time: 0.678 ms
+=== R13 run 5 ===
+Merge Anti Join  (cost=0.57..517.50 rows=266 width=22) (actual time=0.012..0.634 rows=377.00 loops=1)
+  Merge Cond: (p.pro_id = b.pro_id)
+  Buffers: shared hit=286
+  ->  Index Scan using professionals_pkey on professionals p  (cost=0.28..110.03 rows=2220 width=22) (actual time=0.004..0.183 rows=2220.00 loops=1)
+        Filter: ((status)::text = 'ACTIVE'::text)
+        Rows Removed by Filter: 280
+        Index Searches: 1
+        Buffers: shared hit=35
+  ->  Index Only Scan using idx_bookings_cancelled_cust on bookings b  (cost=0.29..280.11 rows=12255 width=4) (actual time=0.005..0.264 rows=6062.00 loops=1)
+        Heap Fetches: 238
+        Index Searches: 1
+        Buffers: shared hit=251
+Planning:
+  Buffers: shared hit=364
+Planning Time: 0.579 ms
+Execution Time: 0.654 ms

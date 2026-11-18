@@ -1,0 +1,115 @@
+=== R24 run 1 ===
+Sort  (cost=4124.16..4127.27 rows=1245 width=48) (actual time=5.195..5.196 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=990
+  ->  HashAggregate  (cost=4041.48..4060.15 rows=1245 width=48) (actual time=5.181..5.186 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=987
+        ->  Bitmap Heap Scan on bookings  (cost=720.99..4031.71 rows=1303 width=11) (actual time=1.469..5.087 rows=1228.00 loops=1)
+              Recheck Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Filter: (cancellation_fee > '0'::numeric)
+              Rows Removed by Filter: 48975
+              Heap Blocks: exact=873
+              Buffers: shared hit=987
+              ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..720.67 rows=50897 width=0) (actual time=1.412..1.412 rows=50361.00 loops=1)
+                    Index Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Index Searches: 5
+                    Buffers: shared hit=114
+Planning:
+  Buffers: shared hit=277
+Planning Time: 0.438 ms
+Execution Time: 5.239 ms
+=== R24 run 2 ===
+Sort  (cost=4124.16..4127.27 rows=1245 width=48) (actual time=4.947..4.947 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=990
+  ->  HashAggregate  (cost=4041.48..4060.15 rows=1245 width=48) (actual time=4.934..4.938 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=987
+        ->  Bitmap Heap Scan on bookings  (cost=720.99..4031.71 rows=1303 width=11) (actual time=1.207..4.838 rows=1228.00 loops=1)
+              Recheck Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Filter: (cancellation_fee > '0'::numeric)
+              Rows Removed by Filter: 48975
+              Heap Blocks: exact=873
+              Buffers: shared hit=987
+              ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..720.67 rows=50897 width=0) (actual time=1.113..1.113 rows=50361.00 loops=1)
+                    Index Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Index Searches: 5
+                    Buffers: shared hit=114
+Planning:
+  Buffers: shared hit=277
+Planning Time: 0.487 ms
+Execution Time: 4.985 ms
+=== R24 run 3 ===
+Sort  (cost=4124.16..4127.27 rows=1245 width=48) (actual time=5.120..5.121 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=990
+  ->  HashAggregate  (cost=4041.48..4060.15 rows=1245 width=48) (actual time=5.109..5.112 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=987
+        ->  Bitmap Heap Scan on bookings  (cost=720.99..4031.71 rows=1303 width=11) (actual time=1.013..4.993 rows=1228.00 loops=1)
+              Recheck Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Filter: (cancellation_fee > '0'::numeric)
+              Rows Removed by Filter: 48975
+              Heap Blocks: exact=873
+              Buffers: shared hit=987
+              ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..720.67 rows=50897 width=0) (actual time=0.963..0.963 rows=50361.00 loops=1)
+                    Index Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Index Searches: 5
+                    Buffers: shared hit=114
+Planning:
+  Buffers: shared hit=277
+Planning Time: 0.395 ms
+Execution Time: 5.159 ms
+=== R24 run 4 ===
+Sort  (cost=4124.16..4127.27 rows=1245 width=48) (actual time=4.715..4.715 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=990
+  ->  HashAggregate  (cost=4041.48..4060.15 rows=1245 width=48) (actual time=4.702..4.706 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=987
+        ->  Bitmap Heap Scan on bookings  (cost=720.99..4031.71 rows=1303 width=11) (actual time=0.985..4.598 rows=1228.00 loops=1)
+              Recheck Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Filter: (cancellation_fee > '0'::numeric)
+              Rows Removed by Filter: 48975
+              Heap Blocks: exact=873
+              Buffers: shared hit=987
+              ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..720.67 rows=50897 width=0) (actual time=0.937..0.937 rows=50361.00 loops=1)
+                    Index Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Index Searches: 5
+                    Buffers: shared hit=114
+Planning:
+  Buffers: shared hit=277
+Planning Time: 0.390 ms
+Execution Time: 4.752 ms
+=== R24 run 5 ===
+Sort  (cost=4124.16..4127.27 rows=1245 width=48) (actual time=4.726..4.727 rows=7.00 loops=1)
+  Sort Key: (date_trunc('month'::text, scheduled_start))
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=990
+  ->  HashAggregate  (cost=4041.48..4060.15 rows=1245 width=48) (actual time=4.715..4.719 rows=7.00 loops=1)
+        Group Key: date_trunc('month'::text, scheduled_start)
+        Batches: 1  Memory Usage: 65kB
+        Buffers: shared hit=987
+        ->  Bitmap Heap Scan on bookings  (cost=720.99..4031.71 rows=1303 width=11) (actual time=1.000..4.621 rows=1228.00 loops=1)
+              Recheck Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+              Filter: (cancellation_fee > '0'::numeric)
+              Rows Removed by Filter: 48975
+              Heap Blocks: exact=873
+              Buffers: shared hit=987
+              ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..720.67 rows=50897 width=0) (actual time=0.952..0.952 rows=50361.00 loops=1)
+                    Index Cond: (scheduled_start >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Index Searches: 5
+                    Buffers: shared hit=114
+Planning:
+  Buffers: shared hit=277
+Planning Time: 0.405 ms
+Execution Time: 4.764 ms

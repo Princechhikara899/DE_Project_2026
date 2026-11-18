@@ -1,0 +1,65 @@
+=== R05 run 1 ===
+Sort  (cost=153.22..153.42 rows=80 width=20) (actual time=0.073..0.074 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=27 dirtied=15
+  ->  Index Scan using idx_bookings_requested_id_sched on bookings  (cost=0.14..150.69 rows=80 width=20) (actual time=0.021..0.063 rows=46.00 loops=1)
+        Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+        Index Searches: 1
+        Buffers: shared hit=24 dirtied=15
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.442 ms
+Execution Time: 0.084 ms
+=== R05 run 2 ===
+Sort  (cost=153.22..153.42 rows=80 width=20) (actual time=0.097..0.098 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=27
+  ->  Index Scan using idx_bookings_requested_id_sched on bookings  (cost=0.14..150.69 rows=80 width=20) (actual time=0.070..0.086 rows=46.00 loops=1)
+        Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+        Index Searches: 1
+        Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.445 ms
+Execution Time: 0.108 ms
+=== R05 run 3 ===
+Sort  (cost=153.22..153.42 rows=80 width=20) (actual time=0.040..0.040 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=27
+  ->  Index Scan using idx_bookings_requested_id_sched on bookings  (cost=0.14..150.69 rows=80 width=20) (actual time=0.015..0.030 rows=46.00 loops=1)
+        Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+        Index Searches: 1
+        Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.390 ms
+Execution Time: 0.051 ms
+=== R05 run 4 ===
+Sort  (cost=153.22..153.42 rows=80 width=20) (actual time=0.039..0.040 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=27
+  ->  Index Scan using idx_bookings_requested_id_sched on bookings  (cost=0.14..150.69 rows=80 width=20) (actual time=0.014..0.029 rows=46.00 loops=1)
+        Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+        Index Searches: 1
+        Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.381 ms
+Execution Time: 0.050 ms
+=== R05 run 5 ===
+Sort  (cost=153.22..153.42 rows=80 width=20) (actual time=0.041..0.042 rows=46.00 loops=1)
+  Sort Key: scheduled_start
+  Sort Method: quicksort  Memory: 26kB
+  Buffers: shared hit=27
+  ->  Index Scan using idx_bookings_requested_id_sched on bookings  (cost=0.14..150.69 rows=80 width=20) (actual time=0.015..0.031 rows=46.00 loops=1)
+        Index Cond: (scheduled_start < '2026-07-02 12:00:00+05:30'::timestamp with time zone)
+        Index Searches: 1
+        Buffers: shared hit=24
+Planning:
+  Buffers: shared hit=245
+Planning Time: 0.381 ms
+Execution Time: 0.053 ms

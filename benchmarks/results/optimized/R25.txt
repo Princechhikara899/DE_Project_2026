@@ -1,0 +1,265 @@
+=== R25 run 1 ===
+Limit  (cost=3502.63..3502.71 rows=30 width=68) (actual time=2.687..2.689 rows=30.00 loops=1)
+  Buffers: shared hit=576
+  ->  Sort  (cost=3502.63..3507.97 rows=2136 width=68) (actual time=2.686..2.688 rows=30.00 loops=1)
+        Sort Key: (COALESCE(booked.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=576
+        ->  Hash Left Join  (cost=3407.23..3439.54 rows=2136 width=68) (actual time=2.588..2.647 rows=357.00 loops=1)
+              Hash Cond: (a.pro_id = booked.pro_id)
+              Buffers: shared hit=573
+              ->  HashAggregate  (cost=1059.35..1086.05 rows=2136 width=36) (actual time=2.009..2.045 rows=357.00 loops=1)
+                    Group Key: a.pro_id
+                    Batches: 1  Memory Usage: 225kB
+                    Buffers: shared hit=514
+                    ->  Hash Join  (cost=348.35..1032.65 rows=2136 width=20) (actual time=0.351..1.717 rows=2142.00 loops=1)
+                          Hash Cond: (a.pro_id = p.pro_id)
+                          Buffers: shared hit=514
+                          ->  Bitmap Heap Scan on pro_availability a  (cost=285.10..934.30 rows=13347 width=20) (actual time=0.253..1.209 rows=13320.00 loops=1)
+                                Recheck Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                Heap Blocks: exact=449
+                                Buffers: shared hit=487
+                                ->  Bitmap Index Scan on idx_pro_availability_date_pro  (cost=0.00..281.76 rows=13347 width=0) (actual time=0.232..0.232 rows=13320.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Index Searches: 1
+                                      Buffers: shared hit=38
+                          ->  Hash  (cost=58.25..58.25 rows=400 width=4) (actual time=0.093..0.093 rows=400.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                                Buffers: shared hit=27
+                                ->  Seq Scan on professionals p  (cost=0.00..58.25 rows=400 width=4) (actual time=0.004..0.081 rows=400.00 loops=1)
+                                      Filter: (city_id = 1)
+                                      Rows Removed by Filter: 2100
+                                      Buffers: shared hit=27
+              ->  Hash  (cost=2334.79..2334.79 rows=1047 width=36) (actual time=0.576..0.576 rows=1080.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 63kB
+                    Buffers: shared hit=59
+                    ->  Subquery Scan on booked  (cost=2311.24..2334.79 rows=1047 width=36) (actual time=0.436..0.537 rows=1080.00 loops=1)
+                          Buffers: shared hit=59
+                          ->  HashAggregate  (cost=2311.24..2324.32 rows=1047 width=36) (actual time=0.436..0.501 rows=1080.00 loops=1)
+                                Group Key: b.pro_id
+                                Batches: 1  Memory Usage: 625kB
+                                Buffers: shared hit=59
+                                ->  Bitmap Heap Scan on bookings b  (cost=30.46..2293.55 rows=1415 width=20) (actual time=0.033..0.137 rows=1638.00 loops=1)
+                                      Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=53
+                                      Buffers: shared hit=59
+                                      ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..30.11 rows=1415 width=0) (actual time=0.027..0.027 rows=1638.00 loops=1)
+                                            Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=410
+Planning Time: 0.699 ms
+Execution Time: 2.743 ms
+=== R25 run 2 ===
+Limit  (cost=3502.63..3502.71 rows=30 width=68) (actual time=2.415..2.417 rows=30.00 loops=1)
+  Buffers: shared hit=576
+  ->  Sort  (cost=3502.63..3507.97 rows=2136 width=68) (actual time=2.415..2.416 rows=30.00 loops=1)
+        Sort Key: (COALESCE(booked.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=576
+        ->  Hash Left Join  (cost=3407.23..3439.54 rows=2136 width=68) (actual time=2.319..2.376 rows=357.00 loops=1)
+              Hash Cond: (a.pro_id = booked.pro_id)
+              Buffers: shared hit=573
+              ->  HashAggregate  (cost=1059.35..1086.05 rows=2136 width=36) (actual time=1.776..1.809 rows=357.00 loops=1)
+                    Group Key: a.pro_id
+                    Batches: 1  Memory Usage: 225kB
+                    Buffers: shared hit=514
+                    ->  Hash Join  (cost=348.35..1032.65 rows=2136 width=20) (actual time=0.337..1.486 rows=2142.00 loops=1)
+                          Hash Cond: (a.pro_id = p.pro_id)
+                          Buffers: shared hit=514
+                          ->  Bitmap Heap Scan on pro_availability a  (cost=285.10..934.30 rows=13347 width=20) (actual time=0.239..0.979 rows=13320.00 loops=1)
+                                Recheck Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                Heap Blocks: exact=449
+                                Buffers: shared hit=487
+                                ->  Bitmap Index Scan on idx_pro_availability_date_pro  (cost=0.00..281.76 rows=13347 width=0) (actual time=0.218..0.218 rows=13320.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Index Searches: 1
+                                      Buffers: shared hit=38
+                          ->  Hash  (cost=58.25..58.25 rows=400 width=4) (actual time=0.094..0.094 rows=400.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                                Buffers: shared hit=27
+                                ->  Seq Scan on professionals p  (cost=0.00..58.25 rows=400 width=4) (actual time=0.004..0.081 rows=400.00 loops=1)
+                                      Filter: (city_id = 1)
+                                      Rows Removed by Filter: 2100
+                                      Buffers: shared hit=27
+              ->  Hash  (cost=2334.79..2334.79 rows=1047 width=36) (actual time=0.542..0.542 rows=1080.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 63kB
+                    Buffers: shared hit=59
+                    ->  Subquery Scan on booked  (cost=2311.24..2334.79 rows=1047 width=36) (actual time=0.404..0.503 rows=1080.00 loops=1)
+                          Buffers: shared hit=59
+                          ->  HashAggregate  (cost=2311.24..2324.32 rows=1047 width=36) (actual time=0.404..0.470 rows=1080.00 loops=1)
+                                Group Key: b.pro_id
+                                Batches: 1  Memory Usage: 625kB
+                                Buffers: shared hit=59
+                                ->  Bitmap Heap Scan on bookings b  (cost=30.46..2293.55 rows=1415 width=20) (actual time=0.030..0.118 rows=1638.00 loops=1)
+                                      Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=53
+                                      Buffers: shared hit=59
+                                      ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..30.11 rows=1415 width=0) (actual time=0.025..0.025 rows=1638.00 loops=1)
+                                            Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=410
+Planning Time: 0.677 ms
+Execution Time: 2.478 ms
+=== R25 run 3 ===
+Limit  (cost=3502.63..3502.71 rows=30 width=68) (actual time=2.702..2.704 rows=30.00 loops=1)
+  Buffers: shared hit=576
+  ->  Sort  (cost=3502.63..3507.97 rows=2136 width=68) (actual time=2.701..2.703 rows=30.00 loops=1)
+        Sort Key: (COALESCE(booked.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=576
+        ->  Hash Left Join  (cost=3407.23..3439.54 rows=2136 width=68) (actual time=2.601..2.660 rows=357.00 loops=1)
+              Hash Cond: (a.pro_id = booked.pro_id)
+              Buffers: shared hit=573
+              ->  HashAggregate  (cost=1059.35..1086.05 rows=2136 width=36) (actual time=2.042..2.077 rows=357.00 loops=1)
+                    Group Key: a.pro_id
+                    Batches: 1  Memory Usage: 225kB
+                    Buffers: shared hit=514
+                    ->  Hash Join  (cost=348.35..1032.65 rows=2136 width=20) (actual time=0.340..1.704 rows=2142.00 loops=1)
+                          Hash Cond: (a.pro_id = p.pro_id)
+                          Buffers: shared hit=514
+                          ->  Bitmap Heap Scan on pro_availability a  (cost=285.10..934.30 rows=13347 width=20) (actual time=0.240..1.148 rows=13320.00 loops=1)
+                                Recheck Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                Heap Blocks: exact=449
+                                Buffers: shared hit=487
+                                ->  Bitmap Index Scan on idx_pro_availability_date_pro  (cost=0.00..281.76 rows=13347 width=0) (actual time=0.218..0.218 rows=13320.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Index Searches: 1
+                                      Buffers: shared hit=38
+                          ->  Hash  (cost=58.25..58.25 rows=400 width=4) (actual time=0.096..0.096 rows=400.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                                Buffers: shared hit=27
+                                ->  Seq Scan on professionals p  (cost=0.00..58.25 rows=400 width=4) (actual time=0.004..0.081 rows=400.00 loops=1)
+                                      Filter: (city_id = 1)
+                                      Rows Removed by Filter: 2100
+                                      Buffers: shared hit=27
+              ->  Hash  (cost=2334.79..2334.79 rows=1047 width=36) (actual time=0.557..0.557 rows=1080.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 63kB
+                    Buffers: shared hit=59
+                    ->  Subquery Scan on booked  (cost=2311.24..2334.79 rows=1047 width=36) (actual time=0.410..0.510 rows=1080.00 loops=1)
+                          Buffers: shared hit=59
+                          ->  HashAggregate  (cost=2311.24..2324.32 rows=1047 width=36) (actual time=0.409..0.477 rows=1080.00 loops=1)
+                                Group Key: b.pro_id
+                                Batches: 1  Memory Usage: 625kB
+                                Buffers: shared hit=59
+                                ->  Bitmap Heap Scan on bookings b  (cost=30.46..2293.55 rows=1415 width=20) (actual time=0.031..0.117 rows=1638.00 loops=1)
+                                      Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=53
+                                      Buffers: shared hit=59
+                                      ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..30.11 rows=1415 width=0) (actual time=0.024..0.024 rows=1638.00 loops=1)
+                                            Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=410
+Planning Time: 0.709 ms
+Execution Time: 2.770 ms
+=== R25 run 4 ===
+Limit  (cost=3502.63..3502.71 rows=30 width=68) (actual time=2.468..2.470 rows=30.00 loops=1)
+  Buffers: shared hit=576
+  ->  Sort  (cost=3502.63..3507.97 rows=2136 width=68) (actual time=2.468..2.469 rows=30.00 loops=1)
+        Sort Key: (COALESCE(booked.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=576
+        ->  Hash Left Join  (cost=3407.23..3439.54 rows=2136 width=68) (actual time=2.371..2.429 rows=357.00 loops=1)
+              Hash Cond: (a.pro_id = booked.pro_id)
+              Buffers: shared hit=573
+              ->  HashAggregate  (cost=1059.35..1086.05 rows=2136 width=36) (actual time=1.810..1.844 rows=357.00 loops=1)
+                    Group Key: a.pro_id
+                    Batches: 1  Memory Usage: 225kB
+                    Buffers: shared hit=514
+                    ->  Hash Join  (cost=348.35..1032.65 rows=2136 width=20) (actual time=0.342..1.522 rows=2142.00 loops=1)
+                          Hash Cond: (a.pro_id = p.pro_id)
+                          Buffers: shared hit=514
+                          ->  Bitmap Heap Scan on pro_availability a  (cost=285.10..934.30 rows=13347 width=20) (actual time=0.240..1.013 rows=13320.00 loops=1)
+                                Recheck Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                Heap Blocks: exact=449
+                                Buffers: shared hit=487
+                                ->  Bitmap Index Scan on idx_pro_availability_date_pro  (cost=0.00..281.76 rows=13347 width=0) (actual time=0.219..0.219 rows=13320.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Index Searches: 1
+                                      Buffers: shared hit=38
+                          ->  Hash  (cost=58.25..58.25 rows=400 width=4) (actual time=0.098..0.098 rows=400.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                                Buffers: shared hit=27
+                                ->  Seq Scan on professionals p  (cost=0.00..58.25 rows=400 width=4) (actual time=0.004..0.085 rows=400.00 loops=1)
+                                      Filter: (city_id = 1)
+                                      Rows Removed by Filter: 2100
+                                      Buffers: shared hit=27
+              ->  Hash  (cost=2334.79..2334.79 rows=1047 width=36) (actual time=0.559..0.559 rows=1080.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 63kB
+                    Buffers: shared hit=59
+                    ->  Subquery Scan on booked  (cost=2311.24..2334.79 rows=1047 width=36) (actual time=0.420..0.519 rows=1080.00 loops=1)
+                          Buffers: shared hit=59
+                          ->  HashAggregate  (cost=2311.24..2324.32 rows=1047 width=36) (actual time=0.420..0.485 rows=1080.00 loops=1)
+                                Group Key: b.pro_id
+                                Batches: 1  Memory Usage: 625kB
+                                Buffers: shared hit=59
+                                ->  Bitmap Heap Scan on bookings b  (cost=30.46..2293.55 rows=1415 width=20) (actual time=0.032..0.130 rows=1638.00 loops=1)
+                                      Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=53
+                                      Buffers: shared hit=59
+                                      ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..30.11 rows=1415 width=0) (actual time=0.026..0.026 rows=1638.00 loops=1)
+                                            Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=410
+Planning Time: 0.699 ms
+Execution Time: 2.526 ms
+=== R25 run 5 ===
+Limit  (cost=3502.63..3502.71 rows=30 width=68) (actual time=2.402..2.404 rows=30.00 loops=1)
+  Buffers: shared hit=576
+  ->  Sort  (cost=3502.63..3507.97 rows=2136 width=68) (actual time=2.401..2.403 rows=30.00 loops=1)
+        Sort Key: (COALESCE(booked.booked_min, '0'::numeric)) DESC
+        Sort Method: top-N heapsort  Memory: 26kB
+        Buffers: shared hit=576
+        ->  Hash Left Join  (cost=3407.23..3439.54 rows=2136 width=68) (actual time=2.307..2.362 rows=357.00 loops=1)
+              Hash Cond: (a.pro_id = booked.pro_id)
+              Buffers: shared hit=573
+              ->  HashAggregate  (cost=1059.35..1086.05 rows=2136 width=36) (actual time=1.768..1.799 rows=357.00 loops=1)
+                    Group Key: a.pro_id
+                    Batches: 1  Memory Usage: 225kB
+                    Buffers: shared hit=514
+                    ->  Hash Join  (cost=348.35..1032.65 rows=2136 width=20) (actual time=0.336..1.486 rows=2142.00 loops=1)
+                          Hash Cond: (a.pro_id = p.pro_id)
+                          Buffers: shared hit=514
+                          ->  Bitmap Heap Scan on pro_availability a  (cost=285.10..934.30 rows=13347 width=20) (actual time=0.238..0.985 rows=13320.00 loops=1)
+                                Recheck Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                Heap Blocks: exact=449
+                                Buffers: shared hit=487
+                                ->  Bitmap Index Scan on idx_pro_availability_date_pro  (cost=0.00..281.76 rows=13347 width=0) (actual time=0.217..0.217 rows=13320.00 loops=1)
+                                      Index Cond: ((work_date >= '2026-06-22'::date) AND (work_date <= '2026-06-28'::date))
+                                      Index Searches: 1
+                                      Buffers: shared hit=38
+                          ->  Hash  (cost=58.25..58.25 rows=400 width=4) (actual time=0.094..0.094 rows=400.00 loops=1)
+                                Buckets: 1024  Batches: 1  Memory Usage: 23kB
+                                Buffers: shared hit=27
+                                ->  Seq Scan on professionals p  (cost=0.00..58.25 rows=400 width=4) (actual time=0.004..0.080 rows=400.00 loops=1)
+                                      Filter: (city_id = 1)
+                                      Rows Removed by Filter: 2100
+                                      Buffers: shared hit=27
+              ->  Hash  (cost=2334.79..2334.79 rows=1047 width=36) (actual time=0.537..0.538 rows=1080.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 63kB
+                    Buffers: shared hit=59
+                    ->  Subquery Scan on booked  (cost=2311.24..2334.79 rows=1047 width=36) (actual time=0.400..0.500 rows=1080.00 loops=1)
+                          Buffers: shared hit=59
+                          ->  HashAggregate  (cost=2311.24..2324.32 rows=1047 width=36) (actual time=0.399..0.463 rows=1080.00 loops=1)
+                                Group Key: b.pro_id
+                                Batches: 1  Memory Usage: 625kB
+                                Buffers: shared hit=59
+                                ->  Bitmap Heap Scan on bookings b  (cost=30.46..2293.55 rows=1415 width=20) (actual time=0.030..0.115 rows=1638.00 loops=1)
+                                      Recheck Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                      Heap Blocks: exact=53
+                                      Buffers: shared hit=59
+                                      ->  Bitmap Index Scan on idx_bookings_status_sched  (cost=0.00..30.11 rows=1415 width=0) (actual time=0.025..0.025 rows=1638.00 loops=1)
+                                            Index Cond: (((status)::text = 'COMPLETED'::text) AND (scheduled_start >= '2026-06-22 00:00:00+05:30'::timestamp with time zone) AND (scheduled_start < '2026-06-29 00:00:00+05:30'::timestamp with time zone))
+                                            Index Searches: 1
+                                            Buffers: shared hit=6
+Planning:
+  Buffers: shared hit=410
+Planning Time: 0.641 ms
+Execution Time: 2.457 ms
