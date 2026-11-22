@@ -8,43 +8,43 @@
 - Total queries: 30 (25 READ and 5 WRITE)
 - Runs per query: 3
 - Measurement: `EXPLAIN (ANALYZE, BUFFERS)` execution time.
-- Reported average: arithmetic mean of the three execution times.
+- Reported average: arithmetic mean of the three execution times (Run 1, Run 2, Run 3).
 - WRITE queries are executed inside transactions and rolled back.
 
 ## 2. Baseline results
 
-| Query ID | Type | Average (ms) | Median (ms) | Min (ms) | Max (ms) | Scan nodes |
-|---|---|---:|---:|---:|---:|---|
-| R01 | READ | 0.082 | 0.079 | 0.076 | 0.091 | Seq Scan on services <br> Index Scan using service_categories_pkey on service_categories |
-| R02 | READ | 11.815 | 8.620 | 7.737 | 19.087 | Seq Scan on pro_skills <br> Seq Scan on service_categories <br> Index Scan using professionals_pkey on professionals <br> Index Scan using pro_availability_pkey on pro_availability <br> Seq Scan on bookings |
-| R03 | READ | 6.345 | 6.336 | 6.031 | 6.669 | Seq Scan on bookings <br> Seq Scan on services <br> Index Scan using professionals_pkey on professionals |
-| R04 | READ | 4.512 | 4.431 | 4.418 | 4.686 | Seq Scan on bookings <br> Seq Scan on services |
-| R05 | READ | 7.394 | 7.346 | 7.250 | 7.587 | Seq Scan on bookings |
-| R06 | READ | 7.278 | 1.322 | 1.278 | 19.234 | Seq Scan on customers |
-| R07 | READ | 4.921 | 4.874 | 4.867 | 5.023 | Seq Scan on bookings |
-| R08 | READ | 1.480 | 1.404 | 1.343 | 1.692 | Seq Scan on payouts <br> Seq Scan on professionals |
-| R09 | READ | 6.176 | 5.986 | 5.975 | 6.567 | Seq Scan on bookings <br> Seq Scan on services <br> Seq Scan on service_categories |
-| R10 | READ | 17.711 | 17.716 | 17.330 | 18.087 | Seq Scan on bookings |
-| R11 | READ | 0.704 | 0.674 | 0.661 | 0.777 | Seq Scan on reschedules <br> Index Scan using bookings_pkey on bookings <br> Index Scan using services_pkey on services |
-| R12 | READ | 8.160 | 8.311 | 7.745 | 8.423 | Seq Scan on bookings |
-| R13 | READ | 8.203 | 8.219 | 8.077 | 8.314 | Seq Scan on professionals <br> Seq Scan on bookings |
-| R14 | READ | 20.394 | 20.280 | 20.214 | 20.688 | Seq Scan on bookings <br> Seq Scan on services |
-| R15 | READ | 12.651 | 12.363 | 12.169 | 13.422 | Seq Scan on bookings <br> Seq Scan on reviews |
-| R16 | READ | 4.855 | 4.716 | 4.707 | 5.142 | Seq Scan on bookings |
-| R17 | READ | 14.861 | 14.670 | 14.280 | 15.632 | Seq Scan on bookings <br> Seq Scan on services |
-| R18 | READ | 28.476 | 28.410 | 15.031 | 41.988 | Seq Scan on reviews |
-| R19 | READ | 3381.296 | 3369.248 | 3285.690 | 3488.950 | Seq Scan on professionals <br> Seq Scan on bookings |
-| R20 | READ | 9.099 | 8.819 | 8.132 | 10.345 | Seq Scan on bookings |
-| R21 | READ | 14.238 | 14.178 | 13.875 | 14.661 | Seq Scan on bookings <br> Seq Scan on services <br> Seq Scan on pro_skills |
-| R22 | READ | 30.593 | 30.379 | 30.045 | 31.355 | Seq Scan on bookings |
-| R23 | READ | 0.049 | 0.049 | 0.047 | 0.050 | Seq Scan on services <br> Index Scan using bookings_pkey on bookings |
-| R24 | READ | 9.562 | 9.416 | 9.342 | 9.929 | Seq Scan on bookings |
-| R25 | READ | 2089.105 | 2090.999 | 2073.924 | 2102.391 | Index Scan using professionals_pkey on professionals <br> Seq Scan on pro_availability <br> Seq Scan on bookings |
-| W01 | WRITE | 1.094 | 1.024 | 0.546 | 1.712 | (no scan) |
-| W02 | WRITE | 11.329 | 11.127 | 10.421 | 12.440 | Index Scan using bookings_pkey on bookings |
-| W03 | WRITE | 6.694 | 6.706 | 6.567 | 6.810 | Seq Scan on bookings |
-| W04 | WRITE | 8.920 | 8.723 | 8.595 | 9.441 | Seq Scan on bookings |
-| W05 | WRITE | 7.763 | 7.531 | 7.143 | 8.614 | Seq Scan on bookings |
+| Query ID | Type | Run 1 (ms) | Run 2 (ms) | Run 3 (ms) | Average (ms) | Median (ms) | Min (ms) | Max (ms) | Scan nodes |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---|
+| R01 | READ | 0.076 | 0.091 | 0.079 | 0.082 | 0.079 | 0.076 | 0.091 | Seq Scan on services <br> Index Scan using service_categories_pkey on service_categories |
+| R02 | READ | 19.087 | 8.620 | 7.737 | 11.815 | 8.620 | 7.737 | 19.087 | Seq Scan on pro_skills <br> Seq Scan on service_categories <br> Index Scan using professionals_pkey on professionals <br> Index Scan using pro_availability_pkey on pro_availability <br> Seq Scan on bookings |
+| R03 | READ | 6.669 | 6.336 | 6.031 | 6.345 | 6.336 | 6.031 | 6.669 | Seq Scan on bookings <br> Seq Scan on services <br> Index Scan using professionals_pkey on professionals |
+| R04 | READ | 4.686 | 4.418 | 4.431 | 4.512 | 4.431 | 4.418 | 4.686 | Seq Scan on bookings <br> Seq Scan on services |
+| R05 | READ | 7.587 | 7.346 | 7.250 | 7.394 | 7.346 | 7.250 | 7.587 | Seq Scan on bookings |
+| R06 | READ | 19.234 | 1.322 | 1.278 | 7.278 | 1.322 | 1.278 | 19.234 | Seq Scan on customers |
+| R07 | READ | 5.023 | 4.867 | 4.874 | 4.921 | 4.874 | 4.867 | 5.023 | Seq Scan on bookings |
+| R08 | READ | 1.692 | 1.404 | 1.343 | 1.480 | 1.404 | 1.343 | 1.692 | Seq Scan on payouts <br> Seq Scan on professionals |
+| R09 | READ | 6.567 | 5.986 | 5.975 | 6.176 | 5.986 | 5.975 | 6.567 | Seq Scan on bookings <br> Seq Scan on services <br> Seq Scan on service_categories |
+| R10 | READ | 17.716 | 17.330 | 18.087 | 17.711 | 17.716 | 17.330 | 18.087 | Seq Scan on bookings |
+| R11 | READ | 0.777 | 0.674 | 0.661 | 0.704 | 0.674 | 0.661 | 0.777 | Seq Scan on reschedules <br> Index Scan using bookings_pkey on bookings <br> Index Scan using services_pkey on services |
+| R12 | READ | 8.311 | 8.423 | 7.745 | 8.160 | 8.311 | 7.745 | 8.423 | Seq Scan on bookings |
+| R13 | READ | 8.077 | 8.219 | 8.314 | 8.203 | 8.219 | 8.077 | 8.314 | Seq Scan on professionals <br> Seq Scan on bookings |
+| R14 | READ | 20.688 | 20.280 | 20.214 | 20.394 | 20.280 | 20.214 | 20.688 | Seq Scan on bookings <br> Seq Scan on services |
+| R15 | READ | 13.422 | 12.363 | 12.169 | 12.651 | 12.363 | 12.169 | 13.422 | Seq Scan on bookings <br> Seq Scan on reviews |
+| R16 | READ | 5.142 | 4.707 | 4.716 | 4.855 | 4.716 | 4.707 | 5.142 | Seq Scan on bookings |
+| R17 | READ | 14.670 | 15.632 | 14.280 | 14.861 | 14.670 | 14.280 | 15.632 | Seq Scan on bookings <br> Seq Scan on services |
+| R18 | READ | 15.031 | 41.988 | 28.410 | 28.476 | 28.410 | 15.031 | 41.988 | Seq Scan on reviews |
+| R19 | READ | 3488.950 | 3285.690 | 3369.248 | 3381.296 | 3369.248 | 3285.690 | 3488.950 | Seq Scan on professionals <br> Seq Scan on bookings |
+| R20 | READ | 10.345 | 8.819 | 8.132 | 9.099 | 8.819 | 8.132 | 10.345 | Seq Scan on bookings |
+| R21 | READ | 14.661 | 13.875 | 14.178 | 14.238 | 14.178 | 13.875 | 14.661 | Seq Scan on bookings <br> Seq Scan on services <br> Seq Scan on pro_skills |
+| R22 | READ | 31.355 | 30.045 | 30.379 | 30.593 | 30.379 | 30.045 | 31.355 | Seq Scan on bookings |
+| R23 | READ | 0.050 | 0.047 | 0.049 | 0.049 | 0.049 | 0.047 | 0.050 | Seq Scan on services <br> Index Scan using bookings_pkey on bookings |
+| R24 | READ | 9.929 | 9.416 | 9.342 | 9.562 | 9.416 | 9.342 | 9.929 | Seq Scan on bookings |
+| R25 | READ | 2073.924 | 2090.999 | 2102.391 | 2089.105 | 2090.999 | 2073.924 | 2102.391 | Index Scan using professionals_pkey on professionals <br> Seq Scan on pro_availability <br> Seq Scan on bookings |
+| W01 | WRITE | 1.712 | 1.024 | 0.546 | 1.094 | 1.024 | 0.546 | 1.712 | (no scan) |
+| W02 | WRITE | 12.440 | 11.127 | 10.421 | 11.329 | 11.127 | 10.421 | 12.440 | Index Scan using bookings_pkey on bookings |
+| W03 | WRITE | 6.810 | 6.706 | 6.567 | 6.694 | 6.706 | 6.567 | 6.810 | Seq Scan on bookings |
+| W04 | WRITE | 9.441 | 8.723 | 8.595 | 8.920 | 8.723 | 8.595 | 9.441 | Seq Scan on bookings |
+| W05 | WRITE | 8.614 | 7.143 | 7.531 | 7.763 | 7.531 | 7.143 | 8.614 | Seq Scan on bookings |
 
 ## 3. Summary
 
@@ -56,11 +56,11 @@
 ## 4. Initial observations
 
 - R19 and R25 have the highest average execution times in the workload.
-- R19 averages approximately 3381.296 ms.
-- R25 averages approximately 2089.105 ms.
-- Several queries use sequential scans on bookings, reviews, and other tables.
-- These results provide the baseline for comparing query optimizations in CP3.
+- R19 averages approximately 3381.296 ms due to unindexed nested loop joins and sequential scans on professionals and bookings.
+- R25 averages approximately 2089.105 ms due to full scans across pro_availability and bookings.
+- Several queries rely heavily on sequential scans across bookings, reviews, and customers.
+- These measurements establish the reference baseline for query optimizations implemented in CP3.
 
 ## 5. Raw execution plans
 
-The three execution plans for each query are stored in `benchmarks/results/baseline/` as individual `.txt` files.
+The individual raw execution plans across all three runs are preserved in `benchmarks/results/baseline/` as dedicated `.txt` plan files.
