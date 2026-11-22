@@ -1,0 +1,6 @@
+=== R10 run 1 ===
+  Execution Time: 298.420 ms
+=== R10 run 2 ===
+  Execution Time: 278.650 ms
+=== R10 run 3 ===
+  Execution Time: 278.860 ms

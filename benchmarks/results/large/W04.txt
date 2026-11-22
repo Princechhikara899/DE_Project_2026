@@ -1,0 +1,6 @@
+=== W04 run 1 ===
+  Execution Time: 156.400 ms
+=== W04 run 2 ===
+  Execution Time: 144.650 ms
+=== W04 run 3 ===
+  Execution Time: 144.750 ms

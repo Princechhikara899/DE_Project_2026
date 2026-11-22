@@ -1,0 +1,6 @@
+=== R25 run 1 ===
+  Execution Time: 41.200 ms
+=== R25 run 2 ===
+  Execution Time: 37.180 ms
+=== R25 run 3 ===
+  Execution Time: 37.240 ms

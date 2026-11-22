@@ -1,0 +1,6 @@
+=== R18 run 1 ===
+  Execution Time: 66.210 ms
+=== R18 run 2 ===
+  Execution Time: 60.520 ms
+=== R18 run 3 ===
+  Execution Time: 60.620 ms

@@ -1,0 +1,6 @@
+=== R17 run 1 ===
+  Execution Time: 195.400 ms
+=== R17 run 2 ===
+  Execution Time: 178.800 ms
+=== R17 run 3 ===
+  Execution Time: 178.880 ms

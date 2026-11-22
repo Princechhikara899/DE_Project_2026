@@ -1,0 +1,6 @@
+=== R16 run 1 ===
+  Execution Time: 0.880 ms
+=== R16 run 2 ===
+  Execution Time: 0.797 ms
+=== R16 run 3 ===
+  Execution Time: 0.798 ms

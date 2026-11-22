@@ -1,0 +1,6 @@
+=== W03 run 1 ===
+  Execution Time: 0.235 ms
+=== W03 run 2 ===
+  Execution Time: 0.204 ms
+=== W03 run 3 ===
+  Execution Time: 0.206 ms

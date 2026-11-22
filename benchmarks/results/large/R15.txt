@@ -1,0 +1,6 @@
+=== R15 run 1 ===
+  Execution Time: 209.110 ms
+=== R15 run 2 ===
+  Execution Time: 193.450 ms
+=== R15 run 3 ===
+  Execution Time: 193.600 ms

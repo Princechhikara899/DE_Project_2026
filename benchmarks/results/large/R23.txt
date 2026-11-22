@@ -1,0 +1,6 @@
+=== R23 run 1 ===
+  Execution Time: 0.058 ms
+=== R23 run 2 ===
+  Execution Time: 0.049 ms
+=== R23 run 3 ===
+  Execution Time: 0.049 ms
