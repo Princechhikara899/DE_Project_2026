@@ -1,3 +1,6 @@
 seed_data/
 large_data/
 .DS_Store
+
+*.zip
+large_data.zip
