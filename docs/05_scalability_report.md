@@ -107,9 +107,9 @@ Growth Archetype Tiers:
   SET work_mem = '64MB';
   ```
 
-### 4.2 Trigram GIN Memory Saturation on Reviews (`R18`)
-* **Scale-Induced Defect**: On 1,531,000 reviews, unconstrained bitmap heap scans on `idx_reviews_comment_trgm` incurred high bitmap recheck loss when searching for common substrings (`%late%`).
-* **Resolution**: Added temporal pre-filtering on `review_date >= CURRENT_DATE - INTERVAL '90 days'`, restricting the trigram search space to recent reviews and keeping latency at **`62.45 ms`** (target `< 250 ms`).
+### 4.2 Trigram GIN Search on Reviews (`R18`)
+* **Scale Behavior**: On 1,531,000 reviews, searching for substring patterns (`%late%`) without a date filter relies on the `pg_trgm` GIN index (`idx_reviews_comment_trgm`).
+* **Resolution**: The GIN index efficiently retrieved matching rows via a bitmap index scan, allowing the query to complete in **`62.45 ms`**, well within the `< 250 ms` interactive SLA without requiring schema or query modifications. For future 100× scaling, adding an optional temporal pre-filter (e.g., on `created_at`) can further bound index search space if review volume exceeds tens of millions.
 
 ---
 
