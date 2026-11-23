@@ -1,0 +1,119 @@
+erDiagram
+    cities {
+        int city_id PK
+        varchar city_name
+        varchar state
+    }
+
+    customers {
+        int customer_id PK
+        varchar full_name
+        varchar phone
+        varchar email "nullable"
+        int city_id FK
+        date plus_valid_until "nullable"
+        timestamptz created_at
+    }
+
+    professionals {
+        int pro_id PK
+        varchar full_name
+        varchar phone
+        int city_id FK
+        char gender
+        date joined_on
+        numeric rating "nullable"
+        boolean kyc_verified
+        varchar status
+    }
+
+    service_categories {
+        int category_id PK
+        varchar category_name
+    }
+
+    services {
+        int service_id PK
+        int category_id FK
+        varchar service_name
+        int duration_min
+        numeric base_price
+        boolean is_active
+    }
+
+    bookings {
+        int booking_id PK
+        int customer_id FK
+        int service_id FK
+        int pro_id FK "nullable"
+        int city_id FK
+        varchar pincode
+        timestamptz booked_at
+        timestamptz scheduled_start
+        timestamptz scheduled_end
+        timestamptz started_at "nullable"
+        timestamptz completed_at "nullable"
+        varchar status
+        numeric price
+        numeric discount
+        numeric cancellation_fee
+        numeric tip "nullable"
+        varchar payment_method
+    }
+
+    reviews {
+        int booking_id PK, FK
+        smallint rating_for_pro
+        text comment "nullable"
+        smallint rating_for_customer "nullable"
+        timestamptz created_at
+    }
+
+    reschedules {
+        int reschedule_id PK
+        int booking_id FK
+        timestamptz old_start
+        timestamptz new_start
+        varchar requested_by
+        varchar reason
+        timestamptz created_at
+    }
+
+    payouts {
+        int payout_id PK
+        int pro_id FK
+        date week_start
+        int jobs
+        numeric gross_earnings
+        numeric commission
+        numeric net_payout
+        varchar status
+        timestamptz paid_at "nullable"
+    }
+
+    pro_skills {
+        int pro_id PK, FK
+        int category_id PK, FK
+        date certified_on
+    }
+
+    pro_availability {
+        int pro_id PK, FK
+        date work_date PK
+        time start_time PK
+        time end_time
+    }
+
+    cities ||--o{ customers : "locates"
+    cities ||--o{ professionals : "bases"
+    cities ||--o{ bookings : "hosts"
+    customers ||--o{ bookings : "places"
+    services ||--o{ bookings : "booked_in"
+    professionals |o--o{ bookings : "fulfills"
+    service_categories ||--o{ services : "contains"
+    bookings ||--o| reviews : "receives"
+    bookings ||--o{ reschedules : "has"
+    professionals ||--o{ payouts : "earns"
+    professionals ||--o{ pro_availability : "provides"
+    professionals ||--o{ pro_skills : "has"
+    service_categories ||--o{ pro_skills : "qualifies"
