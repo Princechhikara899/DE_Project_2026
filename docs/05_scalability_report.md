@@ -187,7 +187,7 @@ Urban Company 100× High-Volume Architecture:
       autovacuum_vacuum_cost_limit = 1000
   );
   ```
-  Prevents index bloat on fast-moving status transitions (`REQUESTED` $\rightarrow$ `ASSIGNED` $\rightarrow$ `IN_PROGRESS` $\rightarrow$ `COMPLETED`).
+  Prevents index bloat on fast-moving status transitions (`REQUESTED` $\rightarrow$ `ASSIGNED` $\rightarrow$ `COMPLETED`).
 * **Cold Storage Archival**: Quarterly partitions older than 18 months are archived to columnar storage (Parquet on AWS S3) via `pg_analytics` or Foreign Data Wrappers (`postgres_fdw`).
 
 ---
