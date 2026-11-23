@@ -63,7 +63,32 @@ CREATE TABLE bookings_partitioned (
         FOREIGN KEY (service_id) REFERENCES services(service_id),
 
     CONSTRAINT fk_bookings_part_professional
-        FOREIGN KEY (pro_id) REFERENCES professionals(pro_id)
+        FOREIGN KEY (pro_id) REFERENCES professionals(pro_id),
+
+    CONSTRAINT fk_bookings_part_city
+        FOREIGN KEY (city_id) REFERENCES cities(city_id),
+
+    -- Check constraints
+    CONSTRAINT chk_bookings_part_status
+        CHECK (status IN (
+            'REQUESTED',
+            'ASSIGNED',
+            'COMPLETED',
+            'CANCELLED_BY_CUSTOMER',
+            'CANCELLED_BY_PRO',
+            'NO_SHOW'
+        )),
+
+    CONSTRAINT chk_bookings_part_payment_method
+        CHECK (payment_method IN ('CARD', 'CASH', 'UPI', 'WALLET')),
+
+    CONSTRAINT chk_bookings_part_amounts
+        CHECK (
+            price >= 0
+            AND discount >= 0
+            AND cancellation_fee >= 0
+            AND (tip IS NULL OR tip >= 0)
+        )
 ) PARTITION BY RANGE (scheduled_start);
 
 -- ----------------------------------------------------------------------------
