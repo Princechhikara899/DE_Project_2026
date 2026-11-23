@@ -155,7 +155,7 @@ Urban Company 100× High-Volume Architecture:
 ### 6.1 Table Partitioning Implementation (`sql/08_partitioning.sql`)
 * **Partition Target**: `bookings` partitioned by `RANGE (scheduled_start)`.
 * **Rationale**: 95% of active operations target current or upcoming slots. Historical quarterly partitions can be detached or moved to cold tablespaces.
-* **DDL Implementation**: Fully documented and runnable in [sql/08_partitioning.sql](file:///tmp/DE_Project_2026/sql/08_partitioning.sql).
+* **DDL Implementation**: Fully documented and runnable in [sql/08_partitioning.sql](../sql/08_partitioning.sql).
 * **Primary Key Constraint**: PostgreSQL requires the partition key in all unique constraints:
   ```sql
   CONSTRAINT pk_bookings_partitioned PRIMARY KEY (booking_id, scheduled_start)
@@ -191,4 +191,4 @@ Urban Company 100× High-Volume Architecture:
 
 ## 7. Conclusion & Risk Analysis
 
-The Urban Company database architecture is fully optimized and operationally validated for the 20× volume threshold. All 30 queries meet their strict SLA targets with significant headroom. By enacting quarterly range partitioning on `bookings` ([sql/08_partitioning.sql](file:///tmp/DE_Project_2026/sql/08_partitioning.sql)), city-based horizontal sharding, and dedicated read replicas, the platform is prepared to scale reliably to 100× enterprise volume.
+The Urban Company database architecture is fully optimized and operationally validated for the 20× volume threshold. All 30 queries meet their strict SLA targets with significant headroom. By enacting quarterly range partitioning on `bookings` ([sql/08_partitioning.sql](../sql/08_partitioning.sql)), city-based horizontal sharding, and dedicated read replicas, the platform is prepared to scale reliably to 100× enterprise volume.
