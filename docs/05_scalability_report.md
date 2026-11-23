@@ -44,7 +44,7 @@ The table below contrasts the 3-run average execution times on the **Seed Datase
 | **R19** | READ | Report | < 5,000 ms | 11.504 | 195.840 | 17.02× | **YES** | Rewritten hash aggregate replaces 714 baseline subplans. |
 | **R20** | READ | Report | < 5,000 ms | 1.462 | 21.750 | 14.88× | **YES** | Monthly cancellation fee totals via index scan. |
 | **R21** | READ | Report | < 5,000 ms | 14.501 | 236.420 | 16.30× | **YES** | Unskilled job mismatch detector over parallel hash join. |
-| **R22** | READ | Interactive | < 250 ms | 8.950 | 18.620 | 2.08× | **YES** | Keyset pagination eliminates offset scan penalty. |
+| **R22** | READ | Interactive | < 250 ms | 8.950 | 18.620 | 2.08× | **YES** | Index scan on idx_bookings_booked_at_desc eliminates disk sort. |
 | **R23** | READ | Real-Time | < 5 ms | 0.043 | 0.052 | 1.21× | **YES** | Primary key single-row seek on `booking_id`. |
 | **R24** | READ | Report | < 5,000 ms | 4.980 | 78.910 | 15.85× | **YES** | Plus member discount aggregate over completed jobs. |
 | **R25** | READ | Report | < 5,000 ms | 2.595 | 38.540 | 14.85× | **YES** | Rewritten pro utilization aggregate replaces nested loops. |
@@ -63,7 +63,7 @@ When the dataset expands 20×, execution time growth falls into three distinct m
 ```
 Growth Archetype Tiers:
 ├── 1. Sub-Linear Logarithmic Growth (1.1× – 1.4×)  -> Point & Filtered Lookups [O(log N)]
-├── 2. Bounded Window / Keyset Pagination (2.0×)    -> Keyset Pagination [O(1)]
+├── 2. Index-Backed Deep Offset Pagination (2.1×)   -> B-tree Index Scan [idx_bookings_booked_at_desc]
 └── 3. Proportionate Linear Growth (14× – 18×)      -> Full Reporting Aggregations [O(N)]
 ```
 
@@ -74,16 +74,19 @@ Growth Archetype Tiers:
   * Point lookups on B-tree indexes scale with $O(\log N)$. Increasing row count by 20× increases B-tree height by at most 1 level ($\log_{100}(20) \approx 0.65$).
   * Partial indexes (e.g., `idx_bookings_requested_id_sched` for `W02` and `idx_payouts_pending_week_net` for `R08`) only index active rows. Because active backlog remains bounded by operational concurrency rather than historical data size, index size remains invariant to historical growth.
 
-### 3.2 Tier 2: Bounded Keyset Pagination ($2.08\times$)
-* **Query**: `R22` (Deep Pagination: "My bookings" historical feed).
-* **Behavior**: Under naive `OFFSET 100000`, execution time would have exploded past `600 ms` due to scanning and discarding 100k rows.
-* **Optimization**: Replaced `OFFSET` with Keyset Pagination:
+### 3.2 Tier 2: Index-Backed Deep Offset Pagination ($2.08\times$)
+* **Query**: `R22` (Support console: all bookings, newest first, page 4,001).
+* **Behavior**: At baseline, deep pagination without an index incurred an external merge sort spilling to disk.
+* **Optimization**: Leveraging the `idx_bookings_booked_at_desc` index (`(booked_at DESC)`), PostgreSQL scans directly along the pre-sorted index order, eliminating the disk sort while traversing the offset:
   ```sql
-  -- Keyset Pagination: Seeks directly to the cursor
-  WHERE customer_id = 226 AND (booked_at, booking_id) < (:last_booked_at, :last_booking_id)
-  ORDER BY booked_at DESC, booking_id DESC LIMIT 20;
+  -- Deep Pagination via idx_bookings_booked_at_desc
+  SELECT booking_id, customer_id, service_id, status, booked_at
+  FROM bookings
+  ORDER BY booked_at DESC
+  OFFSET 100000
+  LIMIT 25;
   ```
-  Execution time on 3M rows clocked in at **`18.620 ms`**, achieving $O(1)$ seek performance regardless of page depth.
+  Execution time on 3M rows clocked in at **`18.620 ms`** (compared to `8.950 ms` on seed data), remaining well within the `< 250 ms` interactive SLA.
 
 ### 3.3 Tier 3: Proportionate Linear Growth ($14\times$ to $18\times$)
 * **Queries**: `R09`, `R10`, `R12`, `R14`, `R15`, `R17`, `R18`, `R19`, `R20`, `R21`, `R24`, `R25`, `W04`.
